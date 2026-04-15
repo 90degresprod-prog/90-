@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90° Artistes</title>
+<meta name="description" content="Les artistes qui font vibrer 90°. DJs et producteurs techno, house, groove.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;  }
+
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
+.back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+.back-link:hover { opacity: 1; }
+.nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+.page-header { padding: 120px 60px 60px; }
+.page-tag { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.page-title { font-weight: 700; font-size: clamp(36px, 6vw, 64px); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+.page-sub { font-weight: 300; font-size: 15px; line-height: 1.6; color: var(--text-muted); max-width: 600px; }
+.artists-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; padding: 0 60px 60px; }
+.artist-card { position: relative; aspect-ratio: 3/4; overflow: hidden; background: #111; text-decoration: none; color: var(--text); display: block; }
+.artist-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.6); transition: filter 0.5s ease, transform 0.5s ease; }
+.artist-card:hover .artist-img { filter: grayscale(0); transform: scale(1.05); }
+.artist-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; background: linear-gradient(to top, rgba(10,10,10,0.9), transparent); }
+.artist-num { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 6px; }
+.artist-name { font-weight: 700; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.artist-genre { font-weight: 300; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+.artist-detail { padding: 0 60px 80px; border-top: 1px solid var(--line); display: none; }
+.artist-detail.active { display: block; }
+.artist-detail-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 60px 0; align-items: start; }
+.artist-detail-img { width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(0.3); }
+.artist-detail-name { font-weight: 700; font-size: clamp(28px, 4vw, 48px); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.artist-detail-genre { font-weight: 300; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; }
+.artist-detail-bio { font-weight: 300; font-size: 14px; line-height: 1.8; color: var(--text-muted); max-width: 500px; }
+.artist-detail-events { margin-top: 32px; }
+.artist-detail-events h3 { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+.artist-event-row { padding: 12px 0; border-bottom: 1px solid var(--line); font-weight: 300; font-size: 14px; color: var(--text-muted); }
+.artist-links { margin-top: 24px; display: flex; gap: 16px; }
+.artist-links a { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--text); padding-bottom: 2px; transition: opacity 0.3s; }
+.artist-links a:hover { opacity: 0.6; }
+.cta-section { padding: 60px; text-align: center; border-top: 1px solid var(--line); }
+.cta-title { font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.cta-sub { font-weight: 300; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+.page-footer { padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 16px; }
+.page-footer span { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text); }
+@media (max-width: 768px) {
+   
+  .back-nav { padding: 16px 20px; } .page-header { padding: 100px 24px 40px; }
+  .artists-grid { padding: 0 24px 40px; grid-template-columns: repeat(2, 1fr); } .artist-name { font-size: 16px; }
+  .artist-detail { padding: 0 24px 60px; } .artist-detail-header { grid-template-columns: 1fr; gap: 32px; }
+  .cta-section { padding: 40px 24px; } .page-footer { padding: 24px; flex-direction: column; text-align: center; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.page-header { opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards; }
+.artists-grid { opacity: 0; animation: fadeUp 0.6s ease 0.3s forwards; }
+.easter-egg-flash { position: fixed; inset: 0; background: #fff; z-index: 10000; pointer-events: none; opacity: 0; }
+.easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
+@keyframes easterFlash { 0%{opacity:0}5%{opacity:1}10%{opacity:0}14%{opacity:.9}18%{opacity:0}22%{opacity:.7}26%{opacity:0}35%{opacity:.5}40%{opacity:0}50%{opacity:.3}55%{opacity:0}70%{opacity:.15}100%{opacity:0} }
+.easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
+.easter-egg-text.active { animation: easterText 1.2s ease forwards; }
+@keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(0)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.2) rotate(0)}40%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}70%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(90deg)}85%{opacity:.8;transform:translate(-50%,-50%) scale(1.1) rotate(90deg)}100%{opacity:0;transform:translate(-50%,-50%) scale(.8) rotate(90deg)} }
+</style>
+</head>
+<body>
+
+<div class="easter-egg-flash" id="easterFlash"></div>
+<div class="easter-egg-text" id="easterText">90°</div>
+<nav class="back-nav"><a href="index.html" class="back-link">← 90°</a><a href="index.html" class="nav-logo">90°</a></nav>
+<header class="page-header">
+  <p class="page-tag">Artistes</p>
+  <h1 class="page-title">Line-up.</h1>
+  <p class="page-sub">Les artistes qui ont fait vibrer 90°. Chaque DJ est sélectionné pour sa cohérence musicale et sa capacité à créer une atmosphère.</p>
+</header>
+<section class="artists-grid">
+  <a class="artist-card" onclick="showArtist('cetenza'); return false;" href="#cetenza"><img class="artist-img" src="artistes/cetenza.jpg" alt="Cetenza"><div class="artist-overlay"><p class="artist-num">01</p><h3 class="artist-name">Cetenza</h3><p class="artist-genre">House · Techno</p></div></a>
+  <a class="artist-card" onclick="showArtist('colette'); return false;" href="#colette"><img class="artist-img" src="artistes/colette.png" alt="Colette Rubshinky"><div class="artist-overlay"><p class="artist-num">02</p><h3 class="artist-name">Colette Rubshinky</h3><p class="artist-genre">Techno</p></div></a>
+  <a class="artist-card" onclick="showArtist('paul'); return false;" href="#paul"><img class="artist-img" src="artistes/paul_stack.jpg" alt="Paul Stack"><div class="artist-overlay"><p class="artist-num">03</p><h3 class="artist-name">Paul Stack</h3><p class="artist-genre">Techno</p></div></a>
+  <a class="artist-card" onclick="showArtist('luna'); return false;" href="#luna"><img class="artist-img" src="artistes/luna_orbitz.jpg" alt="Luna Orbitz"><div class="artist-overlay"><p class="artist-num">04</p><h3 class="artist-name">Luna Orbitz</h3><p class="artist-genre">Techno · Hardgroove · Trance</p></div></a>
+</section>
+<section class="artist-detail" id="detail-cetenza"><div class="artist-detail-header"><img class="artist-detail-img" src="artistes/cetenza.jpg" alt="Cetenza"><div><h2 class="artist-detail-name">Cetenza</h2><p class="artist-detail-genre">House · Techno</p><p class="artist-detail-bio">DJ basé à Genève, originaire de Toulouse, animé depuis toujours par une passion pour la musique et le groove sous toutes ses formes. Il développe depuis plus de dix ans une identité sonore élégante et fédératrice. À l'aise aussi bien en club que dans des lieux raffinés, il adapte ses sélections avec précision à chaque contexte. Influencé par la techno de Detroit, la funk, la disco et les sonorités sud-américaines, il façonne une signature chaleureuse et humaine. Technique, polyvalent et endurant, Cetenza crée une ambiance durable et une connexion authentique avec le public.</p><div class="artist-detail-events"><h3>Événements 90°</h3><div class="artist-event-row">Under Eight — Halle W · 07.03.2026</div><div class="artist-event-row">Bulles & Beats — Domaine du Crest · 27.09.2025</div><div class="artist-event-row">Apéro Panoramique Vol. 1 & 2 — Salève · 2025</div></div><div class="artist-links"><a href="https://www.instagram.com/cetenza_/" target="_blank">Instagram</a><a href="https://soundcloud.com/cetenzaa" target="_blank">SoundCloud</a><a href="presskits/presskit_cetenza.pdf" target="_blank">Press Kit ↓</a></div></div></div></section>
+<section class="artist-detail" id="detail-colette"><div class="artist-detail-header"><img class="artist-detail-img" src="artistes/colette.png" alt="Colette Rubshinky"><div><h2 class="artist-detail-name">Colette Rubshinky</h2><p class="artist-detail-genre">Techno</p><p class="artist-detail-bio">Issu d'une famille d'artistes, Colette Rubshinky découvre la musique dès l'enfance dans un environnement jazz avant de se diriger très jeune vers la batterie. Ses influences évoluent rapidement vers le rap puis les musiques électroniques, jusqu'à une révélation décisive à 15 ans qui l'ancre définitivement dans la techno. Après près de dix ans d'exploration du genre, il développe une identité marquée par une techno sombre, hypnotique et énergique, flirtant avec les 145 BPM. Installé à Toulouse, il collabore avec divers collectifs et signe fin 2025 son premier titre sur le label japonais Subhills.</p><div class="artist-detail-events"><h3>Événements 90°</h3><div class="artist-event-row">Under Eight — Halle W · 07.03.2026</div></div><div class="artist-links"><a href="https://www.instagram.com/coletterubshinky/" target="_blank">Instagram</a><a href="https://soundcloud.com/coletterubshinky" target="_blank">SoundCloud</a></div></div></div></section>
+<section class="artist-detail" id="detail-paul"><div class="artist-detail-header"><img class="artist-detail-img" src="artistes/paul_stack.jpg" alt="Paul Stack"><div><h2 class="artist-detail-name">Paul Stack</h2><p class="artist-detail-genre">Techno</p><p class="artist-detail-bio">Originaire de Toulouse, basé à Genève, Paul Stack délivre une techno chirurgicale, où chaque élément est placé avec précision pour une montée d'énergie implacable.</p><div class="artist-detail-events"><h3>Événements 90°</h3><div class="artist-event-row">Under Eight — Halle W · 07.03.2026</div></div><div class="artist-links"><a href="https://www.instagram.com/paulstack_/" target="_blank">Instagram</a><a href="presskits/presskit_paul_stack.pdf" target="_blank">Press Kit ↓</a></div></div></div></section>
+<section class="artist-detail" id="detail-luna"><div class="artist-detail-header"><img class="artist-detail-img" src="artistes/luna_orbitz.jpg" alt="Luna Orbitz"><div><h2 class="artist-detail-name">Luna Orbitz</h2><p class="artist-detail-genre">Techno · Hardgroove · Trance</p><p class="artist-detail-bio">Originaire du Chili et basée à Genève, Luna Orbitz est une exploratrice sonore. Ses sets progressifs, intrépides et percutants, fusionnent habilement les sonorités solaires de la disco trance et de la techno trance montant en chaleur sur les rythmes saccadés et bouncy de la hardgroove. Sa passion pour la scène techno underground l'a propulsée sur la scène genevoise, où elle se produit régulièrement depuis 2021. Luna Orbitz apporte sa signature sonore à divers clubs, festivals et espaces alternatifs à Genève et alentours.</p><div class="artist-detail-events"><h3>Événements 90°</h3><div class="artist-event-row">Under Eight — Halle W · 07.03.2026</div></div><div class="artist-links"><a href="https://www.instagram.com/lunaorbitz/" target="_blank">Instagram</a><a href="https://soundcloud.com/lunaorbitz" target="_blank">SoundCloud</a></div></div></div></section>
+<section class="cta-section"><h2 class="cta-title">Tu es DJ ou producteur ?</h2><p class="cta-sub">Envoie-nous ton set ou tes productions. On écoute tout.</p><p style="margin-top:8px;"><a href="mailto:contact@90degres.net" style="font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--text);padding-bottom:2px;">contact@90degres.net</a></p></section>
+<footer class="page-footer"><span>© 2026 90° — Genève</span><nav class="footer-links"><a href="index.html">Accueil</a><a href="club.html">Club</a><a href="sunset.html">Sunset</a><a href="agenda.html">Agenda</a><a href="contact.html">Contact</a><a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">WhatsApp</a></nav></footer>
+<script>
+function showArtist(id){document.querySelectorAll('.artist-detail').forEach(d=>d.classList.remove('active'));const detail=document.getElementById('detail-'+id);if(detail){detail.classList.add('active');detail.scrollIntoView({behavior:'smooth',block:'start'});}}
+
+</script>
+<script src="90.js"></script>
+</body>
+</html>

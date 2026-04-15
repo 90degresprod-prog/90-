@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90° — Galerie</title>
+<meta name="description" content="Photos et vidéos des événements 90°. Revivez les moments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;  }
+
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
+.back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+.back-link:hover { opacity: 1; }
+.nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+
+.page-header { padding: 120px 60px 40px; }
+.page-tag { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.page-title { font-weight: 700; font-size: clamp(36px, 6vw, 64px); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+.page-sub { font-weight: 300; font-size: 15px; line-height: 1.6; color: var(--text-muted); max-width: 600px; }
+
+.filters { display: flex; gap: 12px; padding: 0 60px 40px; flex-wrap: wrap; }
+.filter-btn { font-family: var(--font); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 10px 20px; border: 1px solid var(--line); background: transparent; color: var(--text-muted); transition: all 0.3s; }
+.filter-btn:hover, .filter-btn.active { border-color: var(--text); color: var(--text); }
+
+/* ─── MASONRY GRID ─── */
+.gallery-grid {
+  padding: 0 60px 60px;
+  columns: 3;
+  column-gap: 8px;
+}
+
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  filter: grayscale(0.4);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  filter: grayscale(0);
+  transform: scale(1.03);
+}
+
+.gallery-item.hidden { display: none; }
+
+.gallery-item-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(10,10,10,0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+.gallery-video-item { position: relative; }
+.play-icon {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 48px; height: 48px; border: 2px solid var(--text); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0.7; transition: opacity 0.3s; pointer-events: none; z-index: 2;
+}
+.play-icon::after {
+  content: ''; width: 0; height: 0;
+  border-left: 16px solid var(--text); border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+  margin-left: 4px;
+}
+.gallery-video-item:hover .play-icon { opacity: 1; }
+
+.gallery-item-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text);
+}
+
+/* ─── VIDEO ITEMS ─── */
+.gallery-video {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+.gallery-video video {
+  width: 100%;
+  display: block;
+}
+
+.gallery-video.hidden { display: none; }
+
+.play-icon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px; height: 48px;
+  border: 2px solid var(--text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.play-icon::after {
+  content: '';
+  width: 0; height: 0;
+  border-left: 16px solid var(--text);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  margin-left: 4px;
+}
+
+.gallery-video:hover .play-icon { opacity: 1; }
+
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(10,10,10,0.95);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+.lightbox-close {
+  position: absolute; top: 20px; right: 40px;
+  font-family: var(--font); font-size: 24px; color: var(--text);
+  background: none; border: none; opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.lightbox-close:hover { opacity: 1; }
+
+.page-footer { padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 16px; }
+.page-footer span { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 768px) {
+  
+  
+  .back-nav { padding: 16px 20px; }
+  .page-header { padding: 100px 24px 32px; }
+  .filters { padding: 0 24px 32px; }
+  .gallery-grid { padding: 0 24px 40px; columns: 2; }
+  .page-footer { padding: 24px; flex-direction: column; text-align: center; }
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.page-header { opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards; }
+.gallery-grid { opacity: 0; animation: fadeUp 0.6s ease 0.3s forwards; }
+
+.easter-egg-flash { position: fixed; inset: 0; background: #fff; z-index: 10000; pointer-events: none; opacity: 0; }
+.easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
+@keyframes easterFlash { 0%{opacity:0}5%{opacity:1}10%{opacity:0}14%{opacity:.9}18%{opacity:0}22%{opacity:.7}26%{opacity:0}35%{opacity:.5}40%{opacity:0}50%{opacity:.3}55%{opacity:0}70%{opacity:.15}100%{opacity:0} }
+.easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
+.easter-egg-text.active { animation: easterText 1.2s ease forwards; }
+@keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(0)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.2) rotate(0)}40%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}70%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(90deg)}85%{opacity:.8;transform:translate(-50%,-50%) scale(1.1) rotate(90deg)}100%{opacity:0;transform:translate(-50%,-50%) scale(.8) rotate(90deg)} }
+</style>
+</head>
+<body>
+
+<div class="easter-egg-flash" id="easterFlash"></div>
+<div class="easter-egg-text" id="easterText">90°</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<nav class="back-nav">
+  <a href="index.html" class="back-link">← 90°</a>
+  <a href="index.html" class="nav-logo">90°</a>
+</nav>
+
+<header class="page-header">
+  <p class="page-tag">Souvenirs</p>
+  <h1 class="page-title">Moments.</h1>
+  <p class="page-sub">Photos et vidéos de nos événements. Chaque image est un fragment d'expérience.</p>
+</header>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Tout</button>
+  <button class="filter-btn" data-filter="club">Club</button>
+  <button class="filter-btn" data-filter="sunset">Sunset</button>
+  <button class="filter-btn" data-filter="experience">Experience</button>
+  <button class="filter-btn" data-filter="video">Vidéos</button>
+</div>
+
+<section class="gallery-grid">
+  <!-- CLUB -->
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eight_1.jpg" alt="Under Eight" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight · Halle W</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eight_3.jpg" alt="Dancefloor" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eight_4.jpg" alt="DJ set" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eight_5.jpg" alt="Ambiance" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eight_7.jpg" alt="Lumières" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eigfht_8.jpg" alt="Club night" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eight_9.jpg" alt="Soirée" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/underr_eight_10.jpg" alt="Techno" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/under_eight_14.jpg" alt="Scénographie" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+  <div class="gallery-item" data-cat="club" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/club/undr_eight_6.jpg" alt="Night" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Under Eight</span></div>
+  </div>
+
+  <!-- SUNSET -->
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol1.jpg" alt="Apéro Panoramique" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique Vol.1</span></div>
+  </div>
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol1_2.jpg" alt="Salève" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique</span></div>
+  </div>
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol1_3.jpg" alt="DJ set sunset" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique</span></div>
+  </div>
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol1_6.jpg" alt="Ambiance" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique</span></div>
+  </div>
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol1_8.jpg" alt="Vue panoramique" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique</span></div>
+  </div>
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol1_10.jpg" alt="Apéro" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique</span></div>
+  </div>
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol2_1.jpg" alt="Vol.2" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique Vol.2</span></div>
+  </div>
+  <div class="gallery-item" data-cat="sunset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/sunset/apvol2_2.jpg" alt="Vol.2 ambiance" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Apéro Panoramique Vol.2</span></div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="gallery-item" data-cat="experience" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/experience/cocktails.jpg" alt="Cocktails" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">La Triptyque · Bastions</span></div>
+  </div>
+  <div class="gallery-item" data-cat="experience" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/experience/cocktails_affiche.jpg" alt="Affiche" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">La Triptyque</span></div>
+  </div>
+  <div class="gallery-item" data-cat="experience" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/experience/wine4.jpg" alt="Wine & Groove" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Bulles & Beats · Domaine du Crest</span></div>
+  </div>
+  <div class="gallery-item" data-cat="experience" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://90degres.net/gallery/experience/wine6.jpg" alt="Dégustation" loading="lazy">
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Bulles & Beats</span></div>
+  </div>
+
+  <!-- AFTERMOVIES YOUTUBE -->
+  <div class="gallery-item gallery-video-item" data-cat="video" onclick="openYouTube('NpyAgBmJPt4')">
+    <img src="https://img.youtube.com/vi/NpyAgBmJPt4/maxresdefault.jpg" alt="Under Eight Aftermovie" loading="lazy">
+    <div class="play-icon"></div>
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Aftermovie · Under Eight</span></div>
+  </div>
+  <div class="gallery-item gallery-video-item" data-cat="video" onclick="openYouTube('9o4bFce6YzI')">
+    <img src="https://img.youtube.com/vi/9o4bFce6YzI/maxresdefault.jpg" alt="Apéro Panoramique Vol.1 Aftermovie" loading="lazy">
+    <div class="play-icon"></div>
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Aftermovie · Apéro Panoramique Vol.1</span></div>
+  </div>
+  <div class="gallery-item gallery-video-item" data-cat="video" onclick="openYouTube('Q9ndP02l0Kk')">
+    <img src="https://img.youtube.com/vi/Q9ndP02l0Kk/maxresdefault.jpg" alt="Apéro Panoramique Vol.2 Aftermovie" loading="lazy">
+    <div class="play-icon"></div>
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Aftermovie · Apéro Panoramique Vol.2</span></div>
+  </div>
+  <div class="gallery-item gallery-video-item" data-cat="video" onclick="openYouTube('ACfI8rKy_1U')">
+    <img src="https://img.youtube.com/vi/ACfI8rKy_1U/maxresdefault.jpg" alt="Bulles & Beats Aftermovie" loading="lazy">
+    <div class="play-icon"></div>
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Aftermovie · Bulles & Beats</span></div>
+  </div>
+  <div class="gallery-item gallery-video-item" data-cat="video" onclick="openYouTube('RYtRy-TGpJU')">
+    <img src="https://img.youtube.com/vi/RYtRy-TGpJU/maxresdefault.jpg" alt="La Triptyque Aftermovie" loading="lazy">
+    <div class="play-icon"></div>
+    <div class="gallery-item-overlay"><span class="gallery-item-label">Aftermovie · La Triptyque</span></div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <span>© 2026 90° — Genève</span>
+  <nav class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="club.html">Club</a>
+    <a href="sunset.html">Sunset</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">WhatsApp</a>
+  </nav>
+</footer>
+
+<script>
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+// YouTube overlay
+function openYouTube(videoId) {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(10,10,10,0.95);z-index:1000;display:flex;align-items:center;justify-content:center;padding:40px;';
+  overlay.innerHTML = '<iframe width="360" height="640" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="max-width:90vw;max-height:85vh;border-radius:8px;"></iframe><button onclick="this.parentElement.remove()" style="position:absolute;top:20px;right:40px;background:none;border:none;color:#E4E2DD;font-size:28px;cursor:none;opacity:0.7;">×</button>';
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+  const closeHandler = (e) => { if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', closeHandler); }};
+  document.addEventListener('keydown', closeHandler);
+}
+
+// Easter egg
+
+</script>
+<script src="90.js"></script>
+</body>
+</html>

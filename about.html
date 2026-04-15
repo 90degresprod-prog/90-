@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90° — À propos</title>
+<meta name="description" content="90°, c'est le moment où tout bascule. Studio créatif événementiel basé à Genève.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;  }
+
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
+.back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+.back-link:hover { opacity: 1; }
+.nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+.section { padding: 80px 60px; border-top: 1px solid var(--line); }
+.section:first-of-type { padding-top: 120px; border-top: none; }
+.section-tag { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.section-title { font-weight: 700; font-size: clamp(28px, 5vw, 48px); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; }
+.section-body { font-weight: 300; font-size: 15px; line-height: 1.8; color: var(--text-muted); max-width: 700px; }
+.quote { font-weight: 300; font-size: clamp(18px, 3vw, 28px); line-height: 1.5; font-style: italic; color: var(--text); max-width: 700px; margin-bottom: 24px; }
+.stats { display: flex; gap: 48px; flex-wrap: wrap; margin-top: 40px; }
+.stat { text-align: center; }
+.stat-num { font-weight: 700; font-size: 36px; letter-spacing: 2px; }
+.stat-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 4px; }
+.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+.value-card { padding: 32px; border: 1px solid var(--line); }
+.value-name { font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.value-desc { font-weight: 300; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+.link-box { display: inline-block; padding: 16px 28px; border: 1px solid var(--text); font-weight: 600; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; transition: background 0.3s, color 0.3s; margin-top: 24px; }
+.link-box:hover { background: var(--text); color: var(--bg); }
+.page-footer { padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 16px; }
+.page-footer span { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text); }
+@media (max-width: 768px) {
+  
+  
+  .back-nav { padding: 16px 20px; }
+  .section { padding: 48px 24px; }
+  .section:first-of-type { padding-top: 100px; }
+  .stats { gap: 32px; }
+  .values-grid { grid-template-columns: 1fr; }
+  .page-footer { padding: 24px; flex-direction: column; text-align: center; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.easter-egg-flash { position: fixed; inset: 0; background: #fff; z-index: 10000; pointer-events: none; opacity: 0; }
+.easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
+@keyframes easterFlash { 0%{opacity:0}5%{opacity:1}10%{opacity:0}14%{opacity:.9}18%{opacity:0}22%{opacity:.7}26%{opacity:0}35%{opacity:.5}40%{opacity:0}50%{opacity:.3}55%{opacity:0}70%{opacity:.15}100%{opacity:0} }
+.easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
+.easter-egg-text.active { animation: easterText 1.2s ease forwards; }
+@keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-90deg)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(0)}60%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) rotate(0)} }
+</style>
+</head>
+<body>
+
+<div class="easter-egg-flash" id="easterFlash"></div>
+<div class="easter-egg-text" id="easterText">90°</div>
+
+<nav class="back-nav">
+  <a href="index.html" class="back-link">← 90°</a>
+  <a href="index.html" class="nav-logo">90°</a>
+</nav>
+
+<!-- MANIFESTE -->
+<section class="section">
+  <p class="section-tag">Manifeste</p>
+  <h1 class="section-title">C'est le moment où tout bascule.</h1>
+  <p class="quote">L'angle exact où une soirée prend forme, où l'énergie s'aligne, où les gens se retrouvent. Un point de bascule entre le jour et la nuit, entre l'écoute et la danse, entre un lieu et une expérience.</p>
+  <p class="section-body">90° est un angle droit. Un changement de direction net et précis. Dans la géométrie comme dans l'événementiel, il représente la rigueur, la structure et la transformation. Chez 90°, chaque événement est pensé avec cette exigence : que chaque détail soit à sa place pour que l'expérience soit totale.</p>
+</section>
+
+<!-- VISION -->
+<section class="section">
+  <p class="section-tag">La vision</p>
+  <h2 class="section-title">Un écosystème événementiel genevois.</h2>
+  <p class="section-body">Créer à Genève un écosystème événementiel où musique, lieux et expériences sensorielles se rencontrent. 90° n'est pas un simple organisateur de soirées. C'est un studio créatif événementiel qui conçoit des moments de bascule.</p>
+</section>
+
+<!-- MISSION -->
+<section class="section">
+  <p class="section-tag">La mission</p>
+  <h2 class="section-title">Révéler le potentiel des lieux.</h2>
+  <p class="section-body">Révéler le potentiel des lieux par la musique et le design d'expérience. Transformer des espaces en moments. Offrir au public genevois des formats événementiels exigeants qui n'existaient pas encore sur leur territoire.</p>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-num">6+</span><p class="stat-label">Événements produits</p></div>
+    <div class="stat"><span class="stat-num">4</span><p class="stat-label">Lieux partenaires</p></div>
+    <div class="stat"><span class="stat-num">1K</span><p class="stat-label">Participants</p></div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="section">
+  <p class="section-tag">Les valeurs</p>
+  <h2 class="section-title">Ce qui nous guide.</h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <h3 class="value-name">Exigence</h3>
+      <p class="value-desc">Chaque détail compte. Du son à la lumière, du lieu à la programmation. Rien n'est laissé au hasard.</p>
+    </div>
+    <div class="value-card">
+      <h3 class="value-name">Immersion</h3>
+      <p class="value-desc">Un événement 90° se vit, il ne se regarde pas. L'objectif est toujours l'absorption totale de l'expérience.</p>
+    </div>
+    <div class="value-card">
+      <h3 class="value-name">Singularité</h3>
+      <p class="value-desc">Des lieux atypiques, des formats inédits, une identité reconnaissable. Jamais la même chose deux fois.</p>
+    </div>
+    <div class="value-card">
+      <h3 class="value-name">Connexion</h3>
+      <p class="value-desc">Créer des moments où les gens se retrouvent, vraiment. La communauté avant la fréquentation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE B2B -->
+<section class="section">
+  <p class="section-tag">Pour les professionnels</p>
+  <h2 class="section-title">Votre lieu. Notre savoir-faire.</h2>
+  <p class="section-body">Vous gérez un restaurant, un bar, un hôtel ou un domaine ? 90° conçoit et produit des événements musicaux et culturels sur mesure. De la création du concept à l'exécution complète.</p>
+  <a href="experience.html" class="link-box">Découvrir l'offre Experience →</a>
+</section>
+
+<!-- PRESSE -->
+<section class="section">
+  <p class="section-tag">Presse & médias</p>
+  <h2 class="section-title">Accès presse.</h2>
+  <p class="section-body">Pour toute demande presse, visuels HD ou presskit complet, contactez-nous directement. Nous répondons sous 24h.</p>
+  <a href="#" class="link-box">Télécharger le presskit</a>
+</section>
+
+<footer class="page-footer">
+  <span>© 2026 90° — Genève</span>
+  <nav class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="club.html">Club</a>
+    <a href="sunset.html">Sunset</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html">Contact</a>
+  <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" class="whatsapp-footer" target="_blank" style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s;">WhatsApp</a>
+  </nav>
+</footer>
+
+<script>
+
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }}); }, { threshold: 0.1 });
+document.querySelectorAll('.section').forEach(s => { s.style.opacity = '0'; s.style.transform = 'translateY(20px)'; s.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(s); });
+</script>
+<script src="90.js"></script>
+</body>
+</html>

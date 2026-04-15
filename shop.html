@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90° Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;  }
+
+.back-link { position: fixed; top: 20px; left: 40px; font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; z-index: 10; }
+.back-link:hover { opacity: 1; }
+.center { text-align: center; padding: 40px; }
+.shop-title { font-weight: 700; font-size: clamp(36px, 6vw, 72px); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 24px; }
+.shop-sub { font-weight: 300; font-size: 16px; color: var(--text-muted); margin-bottom: 32px; letter-spacing: 1px; }
+.shop-line { width: 60px; height: 1px; background: var(--line); margin: 0 auto 32px; }
+.shop-cta { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+.shop-cta a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--text); padding-bottom: 2px; transition: opacity 0.3s; }
+.shop-cta a:hover { opacity: 0.6; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.center { opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
+@media (max-width: 768px) {  body, body *, body a { cursor: auto !important; } .back-link { left: 20px; } }
+.easter-egg-flash { position: fixed; inset: 0; background: #fff; z-index: 10000; pointer-events: none; opacity: 0; }
+.easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
+@keyframes easterFlash { 0%{opacity:0}5%{opacity:1}10%{opacity:0}14%{opacity:.9}18%{opacity:0}22%{opacity:.7}26%{opacity:0}35%{opacity:.5}40%{opacity:0}50%{opacity:.3}55%{opacity:0}70%{opacity:.15}100%{opacity:0} }
+.easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
+.easter-egg-text.active { animation: easterText 1.2s ease forwards; }
+@keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-90deg)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(0)}60%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) rotate(0)} }
+</style>
+</head>
+<body>
+
+<div class="easter-egg-flash" id="easterFlash"></div>
+<div class="easter-egg-text" id="easterText">90°</div>
+<a href="index.html" class="back-link">← 90°</a>
+<div class="center">
+  <h1 class="shop-title">Shop</h1>
+  <div class="shop-line"></div>
+  <p class="shop-sub">En cours de développement.</p>
+  <p class="shop-cta">Rejoins le <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">canal WhatsApp</a> pour être prévenu du lancement.</p>
+</div>
+<script src="90.js"></script>
+</body>
+</html>

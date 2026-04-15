@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90° Sunset — Apéro Panoramique</title>
+<meta name="description" content="DJ sets house & groove dans les plus beaux endroits de Genève. Gastronomie, panoramas, émotion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0A0A0A;
+  --text: #E4E2DD;
+  --text-muted: #8A8680;
+  --line: rgba(228,226,221,0.12);
+  --font: 'Chakra Petch', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  
+}
+
+/* ─── CUSTOM CURSOR ─── */
+
+/* ─── BACK NAV ─── */
+.back-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
+}
+
+.back-link {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.back-link:hover { opacity: 1; }
+
+.nav-logo {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;
+  background: url('https://90degres.net/gallery/sunset/apvol2_1.jpg') center/cover;
+    /* Deploy: use relative path gallery/sunset/apvol2_1.jpg */
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.2), rgba(10,10,10,0.85));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 60px 60px;
+  max-width: 800px;
+}
+
+.hero-tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-weight: 700;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.hero-sub {
+  font-weight: 300;
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 600px;
+}
+
+/* ─── SECTIONS ─── */
+.section {
+  padding: 80px 60px;
+  border-top: 1px solid var(--line);
+}
+
+.section-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: clamp(24px, 4vw, 40px);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+
+/* ─── FORMATS ─── */
+.formats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+}
+
+.format-card {
+  border: 1px solid var(--line);
+  padding: 32px;
+  transition: border-color 0.3s;
+}
+
+.format-card:hover {
+  border-color: var(--text-muted);
+}
+
+.format-num {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.format-name {
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.format-desc {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.format-meta {
+  margin-top: 16px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* ─── GENRES ─── */
+.genres {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.genre-tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  color: var(--text-muted);
+}
+
+/* ─── LIEUX ─── */
+.lieux-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.lieu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.lieu-name {
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.lieu-detail {
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.lieu-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--text);
+  color: var(--bg);
+  margin-left: 12px;
+}
+
+/* ─── GALERIE ─── */
+.gallery-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 0 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-muted) transparent;
+}
+
+.gallery-scroll::-webkit-scrollbar { height: 4px; }
+.gallery-scroll::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 2px; }
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  filter: grayscale(0.3);
+  transition: filter 0.4s, transform 0.3s;
+}
+
+.gallery-item:hover {
+  filter: grayscale(0);
+  transform: scale(1.02);
+}
+
+/* ─── CTA / NEWSLETTER ─── */
+.cta-section {
+  padding: 60px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+
+.cta-title {
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.cta-sub {
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.cta-form {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.cta-form input[type="email"] {
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-right: none;
+  background: transparent;
+  color: var(--text);
+  outline: none;
+  flex: 1;
+  letter-spacing: 1px;
+}
+
+.cta-form input::placeholder { color: var(--text-muted); opacity: 0.5; }
+
+.cta-form button {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: var(--bg);
+  transition: background 0.3s, color 0.3s;
+}
+
+.cta-form button:hover { background: transparent; color: var(--text); }
+
+/* ─── FOOTER ─── */
+.page-footer {
+  padding: 32px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.page-footer span {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--text); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  
+  body, body *, body a, body button, body input { cursor: auto !important; }
+
+  .back-nav { padding: 16px 20px; }
+  .hero { height: 60vh; min-height: 350px; }
+  .hero-content { padding: 0 24px 32px; }
+  .section { padding: 48px 24px; }
+  .formats-grid { grid-template-columns: 1fr; }
+  .gallery-item { width: 240px; height: 160px; }
+  .cta-section { padding: 40px 24px; }
+  .cta-form { flex-direction: column; }
+  .cta-form input[type="email"] { border-right: 1px solid var(--line); border-bottom: none; }
+  .cta-form button { width: 100%; }
+  .page-footer { padding: 24px; flex-direction: column; text-align: center; }
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content > * {
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+}
+.hero-tag { animation-delay: 0.2s; }
+.hero-title { animation-delay: 0.4s; }
+.hero-sub { animation-delay: 0.6s; }
+
+/* ─── EASTER EGG ─── */
+.easter-egg-flash {
+  position: fixed; inset: 0; background: #fff;
+  z-index: 10000; pointer-events: none; opacity: 0;
+}
+.easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
+@keyframes easterFlash {
+  0%{opacity:0} 5%{opacity:1} 10%{opacity:0} 14%{opacity:0.9} 18%{opacity:0}
+  22%{opacity:0.7} 26%{opacity:0} 35%{opacity:0.5} 40%{opacity:0}
+  50%{opacity:0.3} 55%{opacity:0} 70%{opacity:0.15} 100%{opacity:0}
+}
+.easter-egg-text {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px);
+  color: var(--text); z-index: 10001; pointer-events: none; opacity: 0;
+  text-transform: uppercase; letter-spacing: 8px;
+}
+.easter-egg-text.active { animation: easterText 1.2s ease forwards; }
+@keyframes easterText {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(0.5) rotate(-90deg); }
+  30% { opacity: 1; transform: translate(-50%,-50%) scale(1.1) rotate(0); }
+  60% { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(0); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(1.5) rotate(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+
+<!-- EASTER EGG -->
+<div class="easter-egg-flash" id="easterFlash"></div>
+<div class="easter-egg-text" id="easterText">90°</div>
+
+<!-- BACK NAV -->
+<nav class="back-nav">
+  <a href="index.html" class="back-link">← 90°</a>
+  <a href="index.html" class="nav-logo">90°</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tag">90° Sunset</p>
+    <h1 class="hero-title">Le coucher de soleil comme scène.</h1>
+    <p class="hero-sub">House, groove et gastronomie dans les plus beaux endroits de la région genevoise. Une expérience complète où le lieu, la musique et la lumière naturelle forment un tout.</p>
+  </div>
+</section>
+
+<!-- IDENTITÉ -->
+<section class="section">
+  <p class="section-tag">L'identité</p>
+  <h2 class="section-title">Social. Élégant. Solaire.</h2>
+
+  <div class="genres">
+    <span class="genre-tag">House</span>
+    <span class="genre-tag">Groove</span>
+    <span class="genre-tag">Funk</span>
+    <span class="genre-tag">Disco</span>
+  </div>
+
+  <p style="font-weight:300; font-size:15px; line-height:1.7; color:var(--text-muted); max-width:700px;">
+    90° Sunset est le cœur solaire de la marque et son format fondateur. Né aux Apéros Panoramiques à l'Observatoire du Salève, le format mêle DJ sets house et groove, lieux panoramiques et atmosphère conviviale. L'expérience est chaleureuse, sociale, élégante sans être excluante.
+  </p>
+</section>
+
+<!-- FORMATS -->
+<section class="section">
+  <p class="section-tag">Formats</p>
+  <h2 class="section-title">Nos formats.</h2>
+
+  <div class="formats-grid">
+    <div class="format-card">
+      <p class="format-num">01</p>
+      <h3 class="format-name">DJ Set Sunset</h3>
+      <p class="format-desc">Format phare. Lieu avec vue, 80 à 150 personnes, DJ set au coucher du soleil.</p>
+      <p class="format-meta">80–150 pers · 18h–00h</p>
+    </div>
+
+    <div class="format-card">
+      <p class="format-num">02</p>
+      <h3 class="format-name">Wine & Groove</h3>
+      <p class="format-desc">DJ set + dégustation de vin dans un domaine viticole. Croisement musique et terroir.</p>
+      <p class="format-meta">50–100 pers · extérieur</p>
+    </div>
+
+    <div class="format-card">
+      <p class="format-num">03</p>
+      <h3 class="format-name">Cocktail Session</h3>
+      <p class="format-desc">Dégustation cocktails artisanaux accompagnée d'un DJ set house/groove. Bar ou rooftop.</p>
+      <p class="format-meta">40–80 pers · rooftop</p>
+    </div>
+
+    <div class="format-card">
+      <p class="format-num">04</p>
+      <h3 class="format-name">Dîner-Spectacle</h3>
+      <p class="format-desc">Gastronomie + DJ set. Format assis élégant pour restaurants. Ambiance progressive.</p>
+      <p class="format-meta">40–80 pers · restaurant</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIEUX ACTIVÉS -->
+<section class="section">
+  <p class="section-tag">Lieux activés</p>
+  <h2 class="section-title">Des endroits exceptionnels.</h2>
+
+  <div class="lieux-list">
+    <div class="lieu-row">
+      <span class="lieu-name">Observatoire du Salève</span>
+      <span class="lieu-detail">2 événements sunset · Vue 360° sur Genève<span class="lieu-badge">Sold-out</span></span>
+    </div>
+    <div class="lieu-row">
+      <span class="lieu-name">Domaine du Crest</span>
+      <span class="lieu-detail">Wine & Groove · DJ set + dégustation · Septembre 2025</span>
+    </div>
+    <div class="lieu-row">
+      <span class="lieu-name">Kiosque des Bastions</span>
+      <span class="lieu-detail">Dîner-spectacle & cocktails · Octobre 2025</span>
+    </div>
+    <div class="lieu-row">
+      <span class="lieu-name">Rooftops & Terrasses</span>
+      <span class="lieu-detail">Format adaptable · Bars d'hôtels · Panoramas urbains</span>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="section">
+  <p class="section-tag">Souvenirs</p>
+  <h2 class="section-title">Moments.</h2>
+
+  <div class="gallery-scroll">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol1.jpg" alt="Apéro Panoramique Vol.1">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol1_2.jpg" alt="Sunset Salève">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol1_3.jpg" alt="DJ set sunset">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol1_6.jpg" alt="Ambiance sunset">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol1_8.jpg" alt="Vue panoramique">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol1_10.jpg" alt="Apéro">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol2_1.jpg" alt="Vol.2">
+    <img class="gallery-item" src="https://90degres.net/gallery/sunset/apvol2_2.jpg" alt="Vol.2 ambiance">
+    <img class="gallery-item" src="https://90degres.net/gallery/experience/wine4.jpg" alt="Wine & Groove">
+    <img class="gallery-item" src="https://90degres.net/gallery/experience/wine6.jpg" alt="Dégustation">
+    <img class="gallery-item" src="https://90degres.net/gallery/experience/cocktails.jpg" alt="Cocktails">
+  </div>
+</section>
+
+<!-- CTA NEWSLETTER -->
+<section class="cta-section">
+  <h2 class="cta-title">Reçois les invitations en avant-première.</h2>
+  <p class="cta-sub">Prochains événements sunset et soirées panoramiques.</p>
+  <form class="cta-form" name="newsletter-sunset" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="newsletter-sunset">
+    <input type="hidden" name="bot-field">
+    <input type="email" name="email" placeholder="ton@email.com" required>
+    <button type="submit">S'inscrire</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <span>© 2026 90° — Genève</span>
+  <nav class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="club.html">Club</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="contact.html">Contact</a>
+  <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" class="whatsapp-footer" target="_blank" style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s;">WhatsApp</a>
+  </nav>
+</footer>
+
+<script>
+// ═══ CUSTOM CURSOR ═══
+</script>
+
+<script src="90.js"></script>
+</body>
+</html>

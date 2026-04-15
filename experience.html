@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90° Experience — Votre lieu, notre savoir-faire</title>
+<meta name="description" content="90° conçoit des événements musicaux et culturels sur mesure pour restaurants, bars, hôtels et domaines viticoles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;  }
+
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
+.back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+.back-link:hover { opacity: 1; }
+.nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+.section { padding: 80px 60px; border-top: 1px solid var(--line); }
+.section:first-of-type { padding-top: 120px; border-top: none; }
+.section-tag { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.section-title { font-weight: 700; font-size: clamp(28px, 5vw, 48px); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; }
+.section-body { font-weight: 300; font-size: 15px; line-height: 1.8; color: var(--text-muted); max-width: 700px; }
+
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin-top: 40px; }
+.service-card { padding: 32px; border: 1px solid var(--line); transition: border-color 0.3s; }
+.service-card:hover { border-color: var(--text); }
+.service-num { font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; }
+.service-name { font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.service-desc { font-weight: 300; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+
+.lieux-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2px; margin-top: 40px; }
+.lieu-card { padding: 32px; border: 1px solid var(--line); }
+.lieu-card-name { font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.lieu-card-desc { font-weight: 300; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+
+.models-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; margin-top: 40px; }
+.model-card { padding: 32px; border: 1px solid var(--line); position: relative; }
+.model-letter { font-weight: 700; font-size: 32px; color: var(--text-muted); opacity: 0.3; margin-bottom: 12px; }
+.model-name { font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.model-desc { font-weight: 300; font-size: 13px; line-height: 1.6; color: var(--text-muted); margin-bottom: 12px; }
+.model-meta { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+
+.refs-grid { display: flex; flex-direction: column; margin-top: 40px; }
+.ref-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.ref-name { font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+.ref-detail { font-weight: 300; font-size: 13px; color: var(--text-muted); }
+
+.cta-section { padding: 80px 60px; text-align: center; border-top: 1px solid var(--line); }
+.cta-title { font-weight: 700; font-size: clamp(24px, 4vw, 36px); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+.cta-sub { font-weight: 300; font-size: 15px; color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.cta-link { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; border: 1px solid var(--text); padding: 14px 32px; display: inline-block; transition: background 0.3s, color 0.3s; }
+.cta-link:hover { background: var(--text); color: var(--bg); }
+.cta-promise { font-size: 12px; color: var(--text-muted); margin-top: 16px; letter-spacing: 1px; }
+
+.page-footer { padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 16px; }
+.page-footer span { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 768px) {
+  
+  body, body *, body a, body button, body input, body textarea, body select { cursor: auto !important; }
+  .back-nav { padding: 16px 20px; }
+  .section { padding: 48px 24px; } .section:first-of-type { padding-top: 100px; }
+  .services-grid, .lieux-grid, .models-grid { grid-template-columns: 1fr; }
+  .cta-section { padding: 48px 24px; }
+  .ref-row { flex-direction: column; gap: 4px; align-items: flex-start; }
+  .page-footer { padding: 24px; flex-direction: column; text-align: center; }
+}
+.easter-egg-flash { position: fixed; inset: 0; background: #fff; z-index: 10000; pointer-events: none; opacity: 0; }
+.easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
+@keyframes easterFlash { 0%{opacity:0}5%{opacity:1}10%{opacity:0}14%{opacity:.9}18%{opacity:0}22%{opacity:.7}26%{opacity:0}35%{opacity:.5}40%{opacity:0}50%{opacity:.3}55%{opacity:0}70%{opacity:.15}100%{opacity:0} }
+.easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
+.easter-egg-text.active { animation: easterText 1.2s ease forwards; }
+@keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-90deg)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(0)}60%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) rotate(0)} }
+</style>
+</head>
+<body>
+
+<div class="easter-egg-flash" id="easterFlash"></div>
+<div class="easter-egg-text" id="easterText">90°</div>
+
+<nav class="back-nav">
+  <a href="index.html" class="back-link">← 90°</a>
+  <a href="index.html" class="nav-logo">90°</a>
+</nav>
+
+<!-- INTRO -->
+<section class="section">
+  <p class="section-tag">90° Experience</p>
+  <h1 class="section-title">Votre lieu. Notre savoir-faire.</h1>
+  <p class="section-body">90° conçoit et produit des événements musicaux et culturels pour des restaurants, bars, hôtels et domaines viticoles. De la création du concept à l'exécution complète.</p>
+</section>
+
+<!-- SERVICES -->
+<section class="section">
+  <p class="section-tag">Ce que 90° apporte</p>
+  <h2 class="section-title">Zéro risque. Tout géré.</h2>
+  <div class="services-grid">
+    <div class="service-card"><p class="service-num">01</p><h3 class="service-name">Direction artistique</h3><p class="service-desc">Concept créatif adapté à l'identité de votre lieu et à votre clientèle.</p></div>
+    <div class="service-card"><p class="service-num">02</p><h3 class="service-name">Programmation musicale</h3><p class="service-desc">Sélection et booking d'artistes / DJs. Du groove accessible à la techno pointue.</p></div>
+    <div class="service-card"><p class="service-num">03</p><h3 class="service-name">Production technique</h3><p class="service-desc">Son, lumière, scénographie, logistique complète. Rien à gérer de votre côté.</p></div>
+    <div class="service-card"><p class="service-num">04</p><h3 class="service-name">Communauté & visibilité</h3><p class="service-desc">Promotion via Instagram 90°, newsletter, site web. Accès à notre communauté engagée.</p></div>
+    <div class="service-card"><p class="service-num">05</p><h3 class="service-name">Contenu créatif</h3><p class="service-desc">Photos et vidéos professionnelles que votre lieu peut réutiliser librement.</p></div>
+  </div>
+</section>
+
+<!-- TYPES DE LIEUX -->
+<section class="section">
+  <p class="section-tag">Types de lieux</p>
+  <h2 class="section-title">Votre espace a du potentiel.</h2>
+  <div class="lieux-grid">
+    <div class="lieu-card"><h3 class="lieu-card-name">Rooftops & bars d'hôtels</h3><p class="lieu-card-desc">Clientèle internationale, cadre premium, licence existante. Format Sunset ou Cocktail Session.</p></div>
+    <div class="lieu-card"><h3 class="lieu-card-name">Domaines viticoles</h3><p class="lieu-card-desc">Cadre naturel, moins de contraintes sonores. Idéal pour attirer une nouvelle clientèle.</p></div>
+    <div class="lieu-card"><h3 class="lieu-card-name">Restaurants</h3><p class="lieu-card-desc">Format Dîner-Spectacle ou Brunch DJ. Augmentation significative du CA F&B.</p></div>
+    <div class="lieu-card"><h3 class="lieu-card-name">Espaces culturels</h3><p class="lieu-card-desc">Infrastructure technique en place. Idéal pour tester de nouveaux formats.</p></div>
+  </div>
+</section>
+
+<!-- MODÈLES -->
+<section class="section">
+  <p class="section-tag">Modèles de collaboration</p>
+  <h2 class="section-title">Choisissez votre formule.</h2>
+  <div class="models-grid">
+    <div class="model-card">
+      <p class="model-letter">A</p>
+      <h3 class="model-name">Location d'espace</h3>
+      <p class="model-desc">90° loue votre lieu et gère l'événement en autonomie. Vous conservez l'intégralité des revenus F&B. Zéro risque logistique.</p>
+      <p class="model-meta">Revenus billetterie → 90°</p>
+    </div>
+    <div class="model-card">
+      <p class="model-letter">B</p>
+      <h3 class="model-name">Coproduction</h3>
+      <p class="model-desc">Le lieu et 90° co-investissent et partagent les revenus. Risque mutualisé, bénéfices partagés. Idéal pour formats récurrents.</p>
+      <p class="model-meta">Revenus partagés selon accord</p>
+    </div>
+    <div class="model-card">
+      <p class="model-letter">C</p>
+      <h3 class="model-name">Prestation clé en main</h3>
+      <p class="model-desc">Vous commandez une prestation événementielle complète. 90° exécute. Forfait fixe, zéro surprise. Budget maîtrisé.</p>
+      <p class="model-meta">Forfait de production → 90°</p>
+    </div>
+  </div>
+</section>
+
+<!-- RÉFÉRENCES -->
+<section class="section">
+  <p class="section-tag">Références</p>
+  <h2 class="section-title">Plus de 6 événements produits.</h2>
+  <div class="refs-grid">
+    <div class="ref-row"><span class="ref-name">Observatoire du Salève</span><span class="ref-detail">2 événements sunset · Sold-out</span></div>
+    <div class="ref-row"><span class="ref-name">Domaine du Crest</span><span class="ref-detail">Wine & Groove · Sept. 2025</span></div>
+    <div class="ref-row"><span class="ref-name">Kiosque des Bastions</span><span class="ref-detail">Dîner-spectacle · Oct. 2025</span></div>
+    <div class="ref-row"><span class="ref-name">Halle W</span><span class="ref-detail">Soirée club · Mars 2026</span></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">Discutons de votre projet.</h2>
+  <p class="cta-sub">Réponse sous 48h avec une proposition adaptée à votre lieu.</p>
+  <a href="contact.html" class="cta-link">Nous contacter →</a>
+  <p class="cta-promise">Zéro risque logistique. Zéro surprise. 90° gère tout.</p>
+</section>
+
+<footer class="page-footer">
+  <span>© 2026 90° — Genève</span>
+  <nav class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="club.html">Club</a>
+    <a href="sunset.html">Sunset</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="contact.html">Contact</a>
+  <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" class="whatsapp-footer" target="_blank" style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s;">WhatsApp</a>
+  </nav>
+</footer>
+
+<script>
+
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }}); }, { threshold: 0.1 });
+document.querySelectorAll('.section').forEach(s => { s.style.opacity = '0'; s.style.transform = 'translateY(20px)'; s.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(s); });
+</script>
+<script src="90.js"></script>
+</body>
+</html>
