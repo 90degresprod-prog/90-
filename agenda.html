@@ -287,6 +287,26 @@ filterBtns.forEach(btn => {
   });
 });
 
+// ═══ AFTERMOVIE VIEWER ═══
+function openAfterMovie(el) {
+  var src = el.dataset.aftermovie;
+  if (!src) {
+    alert('Aftermovie bientôt disponible.');
+    return;
+  }
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(10,10,10,0.95);z-index:1000;display:flex;align-items:center;justify-content:center;padding:40px;';
+  if (src.indexOf('youtube.com') !== -1) {
+    overlay.innerHTML = '<iframe width="360" height="640" src="' + src + '?autoplay=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="max-width:90vw;max-height:85vh;border-radius:8px;"></iframe><button onclick="this.parentElement.remove()" style="position:absolute;top:20px;right:40px;background:none;border:none;color:#E4E2DD;font-size:28px;opacity:0.7;">×</button>';
+  } else {
+    overlay.innerHTML = '<video controls autoplay style="max-width:90vw;max-height:90vh;" src="' + src + '"></video>';
+  }
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+  var closeHandler = function(e) { if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', closeHandler); }};
+  document.addEventListener('keydown', closeHandler);
+}
+
 </script>
 
 <script src="90.js"></script>
