@@ -57,6 +57,133 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 }
 .no-events a:hover { opacity: 0.7; }
 
+/* ─── UPCOMING HERO ─── */
+.upcoming-hero {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 32px 0 48px;
+  border-bottom: 1px solid var(--line);
+}
+.upcoming-poster {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.upcoming-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+.upcoming-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.upcoming-name {
+  font-weight: 700;
+  font-size: clamp(24px, 4vw, 36px);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+.upcoming-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.upcoming-meta span {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+.upcoming-lieu {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.upcoming-desc {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  max-width: 520px;
+}
+.upcoming-lineup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.lineup-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: 8px;
+}
+.lineup-artist {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.lineup-sep {
+  font-size: 16px;
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+.upcoming-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.upcoming-cta {
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  padding: 12px 24px;
+  border: 1px solid var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+.upcoming-cta:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+@media (max-width: 768px) {
+  .upcoming-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .upcoming-poster {
+    max-width: 280px;
+  }
+  .upcoming-meta {
+    gap: 12px;
+  }
+  .upcoming-meta span {
+    font-size: 11px;
+  }
+}
+
 /* ─── EVENT ROWS ─── */
 .event-row {
   display: grid; grid-template-columns: 120px 1fr auto;
@@ -172,23 +299,37 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 
 <!-- UPCOMING -->
 <section class="section">
-  <p class="section-label">Prochains événements</p>
-  <div class="no-events">
-    <p>Aucun événement à venir pour le moment.</p>
-    <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">Rejoins le canal pour être informé en premier →</a>
+  <p class="section-label">Prochain événement</p>
+
+  <div class="upcoming-hero" data-cat="sunset">
+    <div class="upcoming-poster">
+      <img src="ap3-poster.png" alt="Apéro Panoramique Vol. 3 — Affiche">
+    </div>
+    <div class="upcoming-content">
+      <span class="upcoming-badge">[ 90° SUNSET ]</span>
+      <h2 class="upcoming-name">Apéro Panoramique Vol. 3</h2>
+      <div class="upcoming-meta">
+        <span>DIM 26.07.2026</span>
+        <span>18H — 1H</span>
+        <span>ENTRÉE LIBRE</span>
+      </div>
+      <p class="upcoming-lieu">Restaurant de l'Observatoire · Mont Salève</p>
+      <p class="upcoming-desc">Le rendez-vous sunset revient là où tout a commencé. Une vue panoramique à 360° sur Genève, le lac Léman et les montagnes, une ambiance conviviale, et la plus belle fin de journée de l'été. Deux éditions, deux succès — le Vol. 3 marque le retour.</p>
+      <div class="upcoming-lineup">
+        <span class="lineup-label">Line-up</span>
+        <span class="lineup-artist">Cetenza</span>
+        <span class="lineup-sep">·</span>
+        <span class="lineup-artist">Magellan</span>
+      </div>
+      <div class="upcoming-tags">
+        <span class="event-tag">House</span>
+        <span class="event-tag">Sunset</span>
+        <span class="event-tag">Open Air</span>
+      </div>
+      <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank" class="upcoming-cta">Rejoindre le canal WhatsApp →</a>
+    </div>
   </div>
 
-  <!-- TEMPLATE: Quand un event est confirmé, décommenter ci-dessous et supprimer le no-events -->
-  <!--
-  <div class="event-row upcoming-event" data-cat="sunset">
-    <span class="event-date">15.06.2026</span>
-    <div class="event-info">
-      <span class="event-name">Nom de l'événement</span>
-      <span class="event-detail">Lieu · Artistes</span>
-    </div>
-    <a href="#" class="ticket-btn" onclick="alert('La billetterie ouvre bientôt. Rejoins le canal WhatsApp pour être prévenu en premier.'); return false;">Billetterie →</a>
-  </div>
-  -->
 </section>
 
 <!-- ARCHIVES -->
