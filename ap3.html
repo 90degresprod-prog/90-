@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90° — Apéro Panoramique Vol. 3</title>
+<meta name="description" content="Apéro Panoramique Vol. 3 — 26.07.2026, Restaurant de l'Observatoire, Mont Salève. Sunset house & groove par 90°.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+/* ─── NAV ─── */
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
+.back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+.back-link:hover { opacity: 1; }
+.nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+
+/* ─── HEADER ─── */
+.page-header { padding: 120px 60px 40px; }
+.page-tag { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.page-title { font-weight: 700; font-size: clamp(36px, 6vw, 64px); text-transform: uppercase; letter-spacing: 2px; line-height: 1.05; }
+
+/* ─── EVENT ─── */
+.section { padding: 0 60px 60px; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; padding-top: 40px; border-top: 1px solid var(--line); }
+
+.event-hero { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: start; padding: 32px 0 48px; }
+.event-poster { border-radius: 4px; overflow: hidden; }
+.event-poster img { width: 100%; height: auto; display: block; border-radius: 4px; }
+
+.event-badge-axe { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.event-meta { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 12px; }
+.event-meta span { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: var(--text); }
+.event-lieu { font-size: 14px; font-weight: 300; color: var(--text-muted); margin-bottom: 20px; letter-spacing: 0.5px; }
+.event-desc { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin-bottom: 24px; max-width: 520px; }
+.event-lineup { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.lineup-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-right: 8px; }
+.lineup-artist { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.lineup-sep { font-size: 16px; color: var(--text-muted); opacity: 0.4; }
+.event-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.event-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border: 1px solid var(--line); color: var(--text-muted); white-space: nowrap; }
+.event-status { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border: 1px solid var(--text); color: var(--text); white-space: nowrap; }
+
+/* ─── PHOTOS ─── */
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.photo-item { overflow: hidden; cursor: pointer; }
+.photo-item img { width: 100%; display: block; filter: grayscale(0.4); transition: filter 0.5s ease, transform 0.5s ease; }
+.photo-item:hover img { filter: grayscale(0); transform: scale(1.03); }
+
+/* ─── LIGHTBOX ─── */
+.lightbox { position: fixed; inset: 0; background: rgba(10,10,10,0.95); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 40px; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+.lightbox-close { position: absolute; top: 20px; right: 40px; font-family: var(--font); font-size: 24px; color: var(--text); background: none; border: none; opacity: 0.7; transition: opacity 0.3s; cursor: pointer; }
+.lightbox-close:hover { opacity: 1; }
+
+/* ─── CTA ─── */
+.cta-section { padding: 60px; text-align: center; border-top: 1px solid var(--line); }
+.cta-title { font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.cta-sub { font-weight: 300; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+.cta-btn { display: inline-block; font-family: var(--font); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; padding: 12px 24px; border: 1px solid var(--text); transition: background 0.3s, color 0.3s; }
+.cta-btn:hover { background: var(--text); color: var(--bg); }
+
+/* ─── FOOTER ─── */
+.page-footer { padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 16px; }
+.page-footer span { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  .back-nav { padding: 16px 20px; }
+  .page-header { padding: 100px 24px 32px; }
+  .section { padding: 0 24px 40px; }
+  .event-hero { grid-template-columns: 1fr; gap: 24px; }
+  .event-poster { max-width: 280px; }
+  .event-meta { gap: 12px; }
+  .event-meta span { font-size: 11px; }
+  .photo-grid { grid-template-columns: 1fr; }
+  .cta-section { padding: 40px 24px; }
+  .page-footer { padding: 24px; flex-direction: column; text-align: center; }
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.page-header { opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards; }
+.event-hero { opacity: 0; animation: fadeUp 0.6s ease 0.25s forwards; }
+
+.easter-egg-flash { position: fixed; inset: 0; background: #fff; z-index: 10000; pointer-events: none; opacity: 0; }
+.easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
+@keyframes easterFlash { 0%{opacity:0}5%{opacity:1}10%{opacity:0}14%{opacity:.9}18%{opacity:0}22%{opacity:.7}26%{opacity:0}35%{opacity:.5}40%{opacity:0}50%{opacity:.3}55%{opacity:0}70%{opacity:.15}100%{opacity:0} }
+.easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
+.easter-egg-text.active { animation: easterText 1.2s ease forwards; }
+@keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-90deg)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(0)}60%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) rotate(0)} }
+</style>
+</head>
+<body>
+
+<div class="easter-egg-flash" id="easterFlash"></div>
+<div class="easter-egg-text" id="easterText">90°</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<nav class="back-nav">
+  <a href="agenda.html" class="back-link">← Agenda</a>
+  <a href="index.html" class="nav-logo">90°</a>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <p class="page-tag">Archives · 26.07.2026</p>
+  <h1 class="page-title">Apéro Panoramique<br>Vol. 3</h1>
+</header>
+
+<!-- ÉVÉNEMENT -->
+<section class="section">
+  <p class="section-label">L'événement</p>
+
+  <div class="event-hero">
+    <div class="event-poster">
+      <img src="ap3-poster.jpg" alt="Apéro Panoramique Vol. 3 — Affiche">
+    </div>
+    <div class="event-content">
+      <span class="event-badge-axe">[ 90° SUNSET ]</span>
+      <div class="event-meta">
+        <span>DIM 26.07.2026</span>
+        <span>18H — 1H</span>
+        <span>ENTRÉE LIBRE</span>
+      </div>
+      <p class="event-lieu">Restaurant de l'Observatoire · Mont Salève</p>
+      <p class="event-desc">Troisième édition du rendez-vous sunset, là où la série a commencé. Vue à 360° sur Genève, le lac Léman et les Alpes, house et groove du coucher de soleil jusqu'à la nuit. Le format le plus dense de la série : la terrasse pleine avant même le premier set.</p>
+      <div class="event-lineup">
+        <span class="lineup-label">Line-up</span>
+        <span class="lineup-artist">Cetenza</span>
+        <span class="lineup-sep">·</span>
+        <span class="lineup-artist">Magellan</span>
+      </div>
+      <div class="event-tags">
+        <span class="event-status">Sold-out</span>
+        <span class="event-tag">House</span>
+        <span class="event-tag">Sunset</span>
+        <span class="event-tag">Open Air</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section class="section">
+  <p class="section-label">Photos</p>
+  <div class="photo-grid">
+    <div class="photo-item" onclick="openLightbox('gallery/sunset/apvol3_1.jpg')">
+      <img src="gallery/sunset/apvol3_1.jpg" alt="Apéro Panoramique Vol. 3 — DJ set sous les parasols" loading="lazy">
+    </div>
+    <div class="photo-item" onclick="openLightbox('gallery/sunset/apvol3_2.jpg')">
+      <img src="gallery/sunset/apvol3_2.jpg" alt="Apéro Panoramique Vol. 3 — Set au coucher du soleil" loading="lazy">
+    </div>
+    <div class="photo-item" onclick="openLightbox('gallery/sunset/apvol3_3.jpg')">
+      <img src="gallery/sunset/apvol3_3.jpg" alt="Apéro Panoramique Vol. 3 — Ambiance terrasse" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">La suite : Vol. 4.</h2>
+  <p class="cta-sub">Dimanche 20 septembre 2026 · 18h · Observatoire du Salève</p>
+  <a href="agenda.html" class="cta-btn">Voir l'agenda →</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <span>© 2026 90° — Genève</span>
+  <nav class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="sunset.html">Sunset</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">WhatsApp</a>
+  </nav>
+</footer>
+
+<script>
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+<script src="90.js"></script>
+</body>
+</html>
