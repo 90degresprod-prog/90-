@@ -98,6 +98,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 <footer class="page-footer"><span>© 2026 90° — Genève</span><nav class="footer-links"><a href="index.html">Accueil</a><a href="club.html">Club</a><a href="sunset.html">Sunset</a><a href="agenda.html">Agenda</a><a href="contact.html">Contact</a><a href="https://whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">WhatsApp</a></nav></footer>
 <script>
 function showArtist(id){document.querySelectorAll('.artist-detail').forEach(d=>d.classList.remove('active'));const detail=document.getElementById('detail-'+id);if(detail){detail.classList.add('active');detail.scrollIntoView({behavior:'smooth',block:'start'});}}
+window.addEventListener('DOMContentLoaded',function(){var h=(location.hash||'').replace('#','');if(h&&document.getElementById('detail-'+h)){showArtist(h);}});
 
 </script>
 <script src="90.js"></script>

@@ -36,7 +36,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 .event-desc { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin-bottom: 24px; max-width: 520px; }
 .event-lineup { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
 .lineup-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-right: 8px; }
-.lineup-artist { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.lineup-artist { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text); text-decoration: none; }
+a.lineup-artist { border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+a.lineup-artist:hover { border-bottom-color: currentColor; }
 .lineup-sep { font-size: 16px; color: var(--text-muted); opacity: 0.4; }
 .event-tags { display: flex; gap: 8px; flex-wrap: wrap; }
 .event-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border: 1px solid var(--line); color: var(--text-muted); white-space: nowrap; }
@@ -130,9 +132,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
       <p class="event-desc">Quatrième édition, en pleine bascule d'automne — le dernier sunset de la saison. La terrasse s'est remplie une fois de plus : house et groove du crépuscule jusqu'à 1h, guirlandes dans les arbres et golden hour sur le lac. Environ 156 personnes au sommet, un retour en sécurité pour tout le monde, et le pop-up Yama sur place.</p>
       <div class="event-lineup">
         <span class="lineup-label">Line-up</span>
-        <span class="lineup-artist">Cetenza</span>
+        <a class="lineup-artist" href="artistes.html#cetenza">Cetenza</a>
         <span class="lineup-sep">·</span>
-        <span class="lineup-artist">Bunda</span>
+        <a class="lineup-artist" href="artistes.html#bunda">Bunda</a>
       </div>
       <div class="event-tags">
         <span class="event-status">~156 au sommet</span>

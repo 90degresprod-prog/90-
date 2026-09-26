@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --bg: #00167A; --text: #E4E2DD; --text-muted: rgba(228,226,221,0.62); --line: rgba(228,226,221,0.20); --font: 'Chakra Petch', sans-serif; }
+:root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(0,22,122,0.9), transparent); }
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
 .back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
 .back-link:hover { opacity: 1; }
 .nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
@@ -38,7 +38,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 .event-desc { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin-bottom: 24px; max-width: 520px; }
 .event-lineup { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
 .lineup-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-right: 8px; }
-.lineup-artist { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.lineup-artist { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text); text-decoration: none; }
+a.lineup-artist { border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+a.lineup-artist:hover { border-bottom-color: currentColor; }
 .lineup-sep { font-size: 16px; color: var(--text-muted); opacity: 0.5; }
 .event-tags { display: flex; gap: 8px; flex-wrap: wrap; }
 .event-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border: 1px solid var(--line); color: var(--text-muted); white-space: nowrap; }
@@ -122,11 +124,11 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
       <p class="event-desc">Cinquième édition, et bascule : la série panoramique entre dans l'hiver et passe à l'intérieur. Le Refuge — même sommet, versant nuit. Une clôture de saison en cocon, house, groove et techno du crépuscule jusqu'à 1h, quand la vue laisse place à la nuit. On ouvre les deux premières heures en Open Platine, et le pop-up Yama tient sa place.</p>
       <div class="event-lineup">
         <span class="lineup-label">Line-up</span>
-        <span class="lineup-artist">Cetenza</span>
+        <a class="lineup-artist" href="artistes.html#cetenza">Cetenza</a>
         <span class="lineup-sep">·</span>
-        <span class="lineup-artist">Bunda</span>
+        <a class="lineup-artist" href="artistes.html#bunda">Bunda</a>
         <span class="lineup-sep">·</span>
-        <span class="lineup-artist">VLTN</span>
+        <a class="lineup-artist" href="artistes.html#vltn">VLTN</a>
         <span class="lineup-sep">·</span>
         <span class="lineup-artist">+ Guest</span>
       </div>
