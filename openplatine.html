@@ -21,9 +21,9 @@
 <style>
   :root{
     --noir:#0A0A0A;
-    --blanc:#FFFFFF;
-    --doux:rgba(255,255,255,.55);
-    --trait:rgba(255,255,255,.16);
+    --blanc:#E4E2DD;
+    --doux:#8A8680;
+    --trait:rgba(228,226,221,0.12);
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -39,6 +39,19 @@
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
+
+  /* ---- Nav ---- */
+  .back-nav{
+    display:flex;justify-content:space-between;align-items:center;
+    max-width:680px;margin:0 auto;padding:20px 24px 0;
+  }
+  .back-link,.nav-logo{
+    color:var(--blanc);text-decoration:none;
+    font-size:13px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  }
+  .back-link{opacity:.7;transition:opacity .3s}
+  .back-link:hover{opacity:1}
+  .nav-logo{font-size:16px;letter-spacing:.12em}
 
   .wrap{
     max-width:680px;
@@ -172,7 +185,7 @@
     width:100%;
     background:transparent;
     border:none;
-    border-bottom:1px solid rgba(255,255,255,.35);
+    border-bottom:1px solid rgba(228,226,221,0.35);
     color:var(--blanc);
     font-family:inherit;
     font-size:17px;
@@ -181,7 +194,7 @@
     -webkit-appearance:none;
     appearance:none;
   }
-  input::placeholder{color:rgba(255,255,255,.25)}
+  input::placeholder{color:rgba(228,226,221,0.25)}
   input:focus{outline:none;border-bottom-color:var(--blanc)}
 
   .case{
@@ -250,6 +263,11 @@
 </style>
 </head>
 <body>
+
+<nav class="back-nav">
+  <a href="ap5.html" class="back-link">&larr; Vol. 5</a>
+  <a href="index.html" class="nav-logo">90&deg;</a>
+</nav>
 
 <div class="wrap">
 
@@ -366,7 +384,7 @@
 
   <footer>
     <span>90° · Apéro Panoramique Vol. 5</span>
-    <span><a href="https://instagram.com/90degres__">@90degres__</a> · <a href="https://90degres.net">90degres.net</a></span>
+    <span><a href="index.html">Accueil</a> · <a href="ap5.html">Vol. 5</a> · <a href="https://instagram.com/90degres__">@90degres__</a> · <a href="https://www.whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">WhatsApp</a></span>
   </footer>
 
 </div>
