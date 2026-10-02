@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Platine — Tremplin 90°</title>
+<meta name="description" content="2 à 3 créneaux pour ouvrir l'Apéro Panoramique Vol. 5, le 25 octobre au sommet du Salève. Candidatures jusqu'au 15 octobre.">
+
+<meta property="og:title" content="Open Platine — Tremplin 90°">
+<meta property="og:description" content="2 à 3 créneaux pour ouvrir l'Apéro Panoramique Vol. 5. Candidatures jusqu'au 15 octobre.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://90degres.net/openplatine">
+<!-- TODO : uploader l'affiche recadrée en 1200x630 à ce chemin -->
+<meta property="og:image" content="https://90degres.net/img/openplatine-og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#0A0A0A;
+    --blanc:#FFFFFF;
+    --doux:rgba(255,255,255,.55);
+    --trait:rgba(255,255,255,.16);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+
+  body{
+    background:var(--noir);
+    color:var(--blanc);
+    font-family:'Chakra Petch',system-ui,-apple-system,sans-serif;
+    font-weight:400;
+    line-height:1.55;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .wrap{
+    max-width:680px;
+    margin:0 auto;
+    padding:30px 24px 80px;
+  }
+
+  /* ---- En-tête ---- */
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--doux);
+    padding-bottom:12px;
+    border-bottom:1px solid var(--trait);
+  }
+  .topbar .coord{text-align:right;white-space:nowrap}
+
+  h1{
+    font-size:clamp(36px,9vw,58px);
+    font-weight:700;
+    line-height:1;
+    letter-spacing:-.02em;
+    margin:44px 0 0;
+    text-transform:uppercase;
+  }
+  .accroche{
+    margin-top:20px;
+    font-size:clamp(18px,4.2vw,21px);
+    font-weight:500;
+    line-height:1.4;
+    max-width:32ch;
+  }
+  .meta{
+    margin-top:22px;
+    font-size:13px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--doux);
+  }
+
+  /* ---- Affiche ---- */
+  .affiche{
+    margin-top:34px;
+    display:block;
+    width:100%;
+    height:auto;
+    border:1px solid var(--trait);
+  }
+
+  /* ---- Sections ---- */
+  section{margin-top:54px}
+
+  h2{
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.17em;
+    text-transform:uppercase;
+    color:var(--doux);
+    padding-bottom:10px;
+    border-bottom:1px solid var(--trait);
+    margin-bottom:20px;
+  }
+
+  p{margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+
+  .liste{list-style:none}
+  .liste li{
+    padding:12px 0 12px 24px;
+    position:relative;
+    border-bottom:1px solid var(--trait);
+  }
+  .liste li:last-child{border-bottom:none}
+  .liste li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    color:var(--doux);
+  }
+
+  .cal{width:100%;border-collapse:collapse;font-size:15.5px}
+  .cal td{padding:12px 0;border-bottom:1px solid var(--trait);vertical-align:top}
+  .cal tr:last-child td{border-bottom:none}
+  .cal td:first-child{
+    width:42%;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    font-size:13px;
+    padding-right:14px;
+  }
+
+  .note{
+    font-size:15px;
+    color:var(--doux);
+    border-left:1px solid var(--trait);
+    padding-left:15px;
+    margin-top:18px;
+  }
+
+  /* ---- Formulaire ---- */
+  .form-bloc{
+    margin-top:28px;
+    border:1px solid var(--trait);
+    padding:28px 22px;
+  }
+  .champ{margin-bottom:24px}
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    margin-bottom:9px;
+  }
+  .aide{
+    display:block;
+    font-size:13.5px;
+    font-weight:400;
+    letter-spacing:0;
+    text-transform:none;
+    color:var(--doux);
+    margin-top:4px;
+  }
+  input[type=text],input[type=url]{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid rgba(255,255,255,.35);
+    color:var(--blanc);
+    font-family:inherit;
+    font-size:17px;
+    padding:10px 0;
+    border-radius:0;
+    -webkit-appearance:none;
+    appearance:none;
+  }
+  input::placeholder{color:rgba(255,255,255,.25)}
+  input:focus{outline:none;border-bottom-color:var(--blanc)}
+
+  .case{
+    display:flex;
+    align-items:flex-start;
+    gap:13px;
+    margin:30px 0 26px;
+    cursor:pointer;
+  }
+  .case input{
+    width:21px;height:21px;
+    flex:0 0 21px;
+    margin-top:2px;
+    accent-color:var(--blanc);
+    cursor:pointer;
+  }
+  .case span{
+    font-size:15px;
+    line-height:1.45;
+    letter-spacing:0;
+    text-transform:none;
+    font-weight:400;
+  }
+
+  button{
+    width:100%;
+    background:var(--blanc);
+    color:var(--noir);
+    border:none;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    padding:18px;
+    cursor:pointer;
+    border-radius:0;
+    -webkit-appearance:none;
+  }
+  button:hover{opacity:.85}
+
+  /* Piège à robots — invisible pour les humains */
+  .pot{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
+  footer{
+    margin-top:64px;
+    padding-top:18px;
+    border-top:1px solid var(--trait);
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:12px;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:var(--doux);
+  }
+  footer a{color:inherit;text-decoration:none}
+  footer a:hover{color:var(--blanc)}
+
+  @media (max-width:420px){
+    .topbar{font-size:10.5px}
+    .wrap{padding:24px 20px 64px}
+    .form-bloc{padding:24px 18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <span>Open Platine — Tremplin 90°</span>
+    <span class="coord">46°05′39″N · 6°08′25″E</span>
+  </div>
+
+  <h1>On ouvre<br>les platines</h1>
+
+  <p class="accroche">Le dimanche 25 octobre, l'Apéro Panoramique Vol.&nbsp;5 ouvre ses portes à 17h. Les deux premières heures, ce n'est pas nous qui mixons.</p>
+
+  <p class="meta">Dim 25.10 · 17h–19h · Observatoire du Salève</p>
+
+  <!-- TODO : uploader l'affiche et décommenter
+  <img class="affiche" src="/img/ap5-affiche.jpg" alt="Affiche Apéro Panoramique Vol. 5 — Shelter Edition">
+  -->
+
+  <section>
+    <h2>Ce qu'on cherche</h2>
+    <p>On sélectionne 2 à 3 artistes de la région pour ouvrir la soirée au sommet du Salève, face aux lumières de Genève.</p>
+    <p>House, groove — quelque chose qui tient un apéro et qui monte doucement. Autour de <strong>{110–124}&nbsp;BPM</strong>.</p>
+    <p class="note">Rien à préparer. Envoie simplement le lien de ton SoundCloud. On écoute ce que tu fais déjà.</p>
+  </section>
+
+  <section>
+    <h2>Ce qu'on propose</h2>
+    <ul class="liste">
+      <li>2 à 3 créneaux de 30 à 40 minutes pour ouvrir la soirée, devant le public de 90° — environ 150 personnes à la dernière édition.</li>
+      <li>Une page artiste sur 90degres.net et un relais sur nos canaux.</li>
+      <li>{Boissons et repas offerts sur place.}</li>
+      <li>Le créneau n'est pas rémunéré : c'est un tremplin, on le dit comme c'est.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Qui peut candidater</h2>
+    <ul class="liste">
+      <li>Tu es basé dans la région genevoise ou frontalière.</li>
+      <li>Tu mixes house / groove, autour de {110–124} BPM.</li>
+      <li>Tu as au moins un mix en ligne. On ne demande aucun enregistrement spécifique — le tien suffit.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Comment on choisit</h2>
+    <p><strong>Ce n'est pas un tirage au sort, et ce n'est pas un concours de popularité.</strong></p>
+    <p>Cetenza, directeur artistique musical de 90°, écoute toutes les candidatures et retient une shortlist, puis compose le line-up final.</p>
+    <p>Critères : cohérence avec l'univers house/groove de la série, qualité du mix, capacité à tenir une ouverture de soirée.</p>
+  </section>
+
+  <section>
+    <h2>Calendrier</h2>
+    <table class="cal">
+      <tr><td>Jeu 15 oct · 23h59</td><td>Clôture des candidatures</td></tr>
+      <tr><td>Dim 18 oct</td><td>Annonce des sélectionnés</td></tr>
+      <tr><td>Dim 25 oct</td><td>Apéro Panoramique Vol. 5</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Si tu es sélectionné, tu t'engages à</h2>
+    <ul class="liste">
+      <li>Ramener ton monde — ton créneau, ton public.</li>
+      <li>Respecter le format : 30 à 40 minutes, house/groove, volume et horaires tenus.</li>
+    </ul>
+  </section>
+
+  <section id="candidater">
+    <h2>Candidater</h2>
+
+    <div class="form-bloc">
+      <form name="open-platine" method="POST" action="/openplatine-merci" data-netlify="true" netlify-honeypot="bot-field">
+
+        <input type="hidden" name="form-name" value="open-platine">
+
+        <p class="pot">
+          <label>Ne remplis pas ce champ : <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+        </p>
+
+        <div class="champ">
+          <label for="artiste">Ton nom d'artiste</label>
+          <input type="text" id="artiste" name="nom_artiste" required autocomplete="off" placeholder="Cetenza">
+        </div>
+
+        <div class="champ">
+          <label for="insta">Ton @ Instagram</label>
+          <input type="text" id="insta" name="instagram" required autocomplete="off" placeholder="@tonpseudo">
+        </div>
+
+        <div class="champ">
+          <label for="mix">Le lien de ton SoundCloud
+            <span class="aide">SoundCloud ou Mixcloud — un mix déjà en ligne suffit.</span>
+          </label>
+          <input type="url" id="mix" name="lien_mix" required autocomplete="off" placeholder="https://soundcloud.com/...">
+        </div>
+
+        <div class="champ">
+          <label for="ville">Ta ville</label>
+          <input type="text" id="ville" name="ville" required autocomplete="off" placeholder="Genève, Annemasse...">
+        </div>
+
+        <label class="case">
+          <input type="checkbox" name="reglement" required>
+          <span>Je m'engage à respecter les conditions du règlement.</span>
+        </label>
+
+        <button type="submit">Envoyer ma candidature</button>
+      </form>
+    </div>
+
+    <p class="note">Une question ? DM <a href="https://instagram.com/90degres__" style="color:inherit">@90degres__</a></p>
+  </section>
+
+  <footer>
+    <span>90° · Apéro Panoramique Vol. 5</span>
+    <span><a href="https://instagram.com/90degres__">@90degres__</a> · <a href="https://90degres.net">90degres.net</a></span>
+  </footer>
+
+</div>
+</body>
+</html>

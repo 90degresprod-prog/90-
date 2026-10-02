@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidature reçue — Open Platine 90°</title>
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#0A0A0A;
+    --blanc:#FFFFFF;
+    --doux:rgba(255,255,255,.55);
+    --trait:rgba(255,255,255,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--noir);
+    color:var(--blanc);
+    font-family:'Chakra Petch',system-ui,-apple-system,sans-serif;
+    line-height:1.55;
+    font-size:17px;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{
+    max-width:600px;
+    margin:0 auto;
+    padding:56px 24px;
+    width:100%;
+  }
+  .topbar{
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--doux);
+    padding-bottom:12px;border-bottom:1px solid var(--trait);
+  }
+  h1{
+    font-size:clamp(34px,8.5vw,50px);
+    font-weight:700;line-height:1;letter-spacing:-.02em;
+    text-transform:uppercase;margin:40px 0 20px;
+  }
+  .intro{font-size:18px;max-width:34ch;margin-bottom:34px}
+
+  h2{
+    font-size:12px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--doux);
+    padding-bottom:10px;border-bottom:1px solid var(--trait);margin-bottom:18px;
+  }
+  .cal{width:100%;border-collapse:collapse;font-size:15.5px;margin-bottom:34px}
+  .cal td{padding:12px 0;border-bottom:1px solid var(--trait);vertical-align:top}
+  .cal tr:last-child td{border-bottom:none}
+  .cal td:first-child{
+    width:42%;font-weight:600;letter-spacing:.04em;
+    text-transform:uppercase;font-size:13px;padding-right:14px;
+  }
+
+  .bouton{
+    display:block;text-align:center;text-decoration:none;
+    background:var(--blanc);color:var(--noir);
+    font-size:14.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    padding:18px;margin-bottom:12px;
+  }
+  .bouton:hover{opacity:.85}
+  .bouton.vide{
+    background:transparent;color:var(--blanc);
+    border:1px solid rgba(255,255,255,.4);font-weight:600;
+  }
+  .bouton.vide:hover{background:var(--blanc);color:var(--noir);opacity:1}
+
+  .note{
+    margin-top:28px;font-size:15px;color:var(--doux);
+    border-left:1px solid var(--trait);padding-left:15px;
+  }
+  footer{
+    margin-top:48px;padding-top:18px;border-top:1px solid var(--trait);
+    font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--doux);
+  }
+  footer a{color:inherit;text-decoration:none}
+  footer a:hover{color:var(--blanc)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="topbar">Open Platine — Tremplin 90°</div>
+
+  <h1>Candidature<br>reçue</h1>
+
+  <p class="intro">Cetenza écoute tout. Vraiment tout.</p>
+
+  <h2>La suite</h2>
+  <table class="cal">
+    <tr><td>Jeu 15 oct</td><td>Clôture des candidatures</td></tr>
+    <tr><td>Dim 18 oct</td><td>Annonce des sélectionnés</td></tr>
+    <tr><td>Dim 25 oct</td><td>Apéro Panoramique Vol. 5</td></tr>
+  </table>
+
+  <a class="bouton" href="{LIEN_CANAL_WHATSAPP}">Rejoindre le canal WhatsApp 90°</a>
+  <a class="bouton vide" href="https://instagram.com/90degres__">Suivre @90degres__</a>
+
+  <p class="note">C'est sur le canal que l'annonce tombera en premier, le 18 octobre. Une question d'ici là : DM @90degres__.</p>
+
+  <footer>
+    <a href="https://90degres.net">90degres.net</a> · <a href="https://instagram.com/90degres__">@90degres__</a>
+  </footer>
+
+</div>
+</body>
+</html>
