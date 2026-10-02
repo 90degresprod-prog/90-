@@ -46,7 +46,7 @@ a.lineup-artist:hover { border-bottom-color: currentColor; }
 .event-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border: 1px solid var(--line); color: var(--text-muted); white-space: nowrap; }
 .event-status { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border: 1px solid var(--text); color: var(--text); white-space: nowrap; }
 
-.prog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+.prog-grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
 .prog-item { border: 1px solid var(--line); padding: 28px 28px 32px; }
 .prog-time { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .prog-name { font-size: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
@@ -77,7 +77,6 @@ a.lineup-artist:hover { border-bottom-color: currentColor; }
   .event-poster { max-width: 280px; }
   .event-meta { gap: 12px; }
   .event-meta span { font-size: 11px; }
-  .prog-grid { grid-template-columns: 1fr; }
   .cta-section { padding: 40px 24px; }
   .page-footer { padding: 24px; flex-direction: column; text-align: center; }
 }
@@ -126,7 +125,7 @@ a.lineup-artist:hover { border-bottom-color: currentColor; }
         <span>ENTRÉE LIBRE</span>
       </div>
       <p class="event-lieu">Restaurant de l'Observatoire · Mont Salève · Édition intérieure</p>
-      <p class="event-desc">Cinquième édition, et bascule : la série panoramique entre dans l'hiver et passe à l'intérieur. Le Refuge — même sommet, versant nuit. Une clôture de saison en cocon, house, groove et techno du crépuscule jusqu'à 1h, quand la vue laisse place à la nuit. On ouvre les deux premières heures en Open Platine, et le pop-up Yama tient sa place.</p>
+      <p class="event-desc">Cinquième édition, et bascule : la série panoramique entre dans l'hiver et passe à l'intérieur. Le Refuge — même sommet, versant nuit. Une clôture de saison en cocon, house, groove et techno du crépuscule jusqu'à 1h, quand la vue laisse place à la nuit. On ouvre les deux premières heures en Open Platine.</p>
       <div class="event-lineup">
         <span class="lineup-label">Line-up</span>
         <a class="lineup-artist" href="artistes.html#cetenza">Cetenza</a>
@@ -157,11 +156,6 @@ a.lineup-artist:hover { border-bottom-color: currentColor; }
       <p class="prog-name">Open Platine</p>
       <p class="prog-desc">Tremplin 90° : 2 à 3 artistes de la région ouvrent la soirée, choisis sur écoute par Cetenza. Candidatures ouvertes jusqu’au jeudi 15 octobre.</p>
       <a href="openplatine.html" class="prog-btn">Candidater →</a>
-    </div>
-    <div class="prog-item">
-      <p class="prog-time">Toute la soirée</p>
-      <p class="prog-name">Pop-up Yama</p>
-      <p class="prog-desc">Le stand Yama sur place, comme à chaque panoramique. Une présence qui fait partie du décor.</p>
     </div>
   </div>
 </section>
