@@ -76,6 +76,15 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 .easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
 .easter-egg-text.active { animation: easterText 1.2s ease forwards; }
 @keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-90deg)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(0)}60%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) rotate(0)} }
+
+.now-card { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; margin-top: 8px; text-decoration: none; color: inherit; border: 1px solid var(--line); padding: 24px; transition: border-color 0.3s; }
+.now-card:hover { border-color: var(--text-muted); }
+.now-card img { width: 100%; height: auto; display: block; border-radius: 4px; }
+.now-meta { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.now-name { font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+.now-desc { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--text-muted); max-width: 520px; margin-bottom: 16px; }
+.now-link { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text); }
+@media (max-width: 768px) { .now-card { grid-template-columns: 1fr; gap: 20px; } .now-card img { max-width: 240px; } }
 </style>
 </head>
 <body>
@@ -93,6 +102,21 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
   <p class="section-tag">90° Experience</p>
   <h1 class="section-title">Votre lieu. Notre savoir-faire.</h1>
   <p class="section-body">90° conçoit et produit des événements musicaux et culturels pour des restaurants, bars, hôtels et domaines viticoles. De la création du concept à l'exécution complète.</p>
+</section>
+
+<!-- EN CE MOMENT -->
+<section class="section">
+  <p class="section-tag">En ce moment</p>
+  <h2 class="section-title">90° × Sikelia.</h2>
+  <a class="now-card" href="sikelia.html">
+    <img src="sikelia-poster.jpg" alt="Apéro Mediterraneo N°01 — 90° × Sikelia — Affiche">
+    <div>
+      <p class="now-meta">Sam 24.10.2026 · 17h — 2h · Eaux-Vives, Genève</p>
+      <h3 class="now-name">Apéro Mediterraneo — N°01</h3>
+      <p class="now-desc">Un concept écrit pour un lieu : Sikelia, la Sicile en grec. Direction musicale, affiche et carte cocktails construites autour de son identité — un apéro qui glisse vers la nuit, de l'aperitivo à l'italo-disco. 90° amène les DJ, le son et le public ; le bar reste au lieu.</p>
+      <span class="now-link">Voir l'événement →</span>
+    </div>
+  </a>
 </section>
 
 <!-- SERVICES -->
