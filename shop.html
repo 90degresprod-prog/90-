@@ -4,44 +4,239 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>90° Shop</title>
+<meta name="description" content="90° — Merch. Season 1 sold out, Season 2 coming soon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root { --bg: #0A0A0A; --text: #E4E2DD; --text-muted: #8A8680; --line: rgba(228,226,221,0.12); --font: 'Chakra Petch', sans-serif; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;  }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; }
 
-.back-link { position: fixed; top: 20px; left: 40px; font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; z-index: 10; }
+/* NAV */
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
+.back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
 .back-link:hover { opacity: 1; }
-.center { text-align: center; padding: 40px; }
-.shop-title { font-weight: 700; font-size: clamp(36px, 6vw, 72px); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 24px; }
-.shop-sub { font-weight: 300; font-size: 16px; color: var(--text-muted); margin-bottom: 32px; letter-spacing: 1px; }
-.shop-line { width: 60px; height: 1px; background: var(--line); margin: 0 auto 32px; }
-.shop-cta { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
-.shop-cta a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--text); padding-bottom: 2px; transition: opacity 0.3s; }
-.shop-cta a:hover { opacity: 0.6; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.center { opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
-@media (max-width: 768px) {  body, body *, body a { cursor: auto !important; } .back-link { left: 20px; } }
+.nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+
+/* HEADER */
+.shop { flex: 1; padding: 120px 60px 80px; max-width: 1200px; width: 100%; margin: 0 auto; }
+.section-tag { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.shop-title { font-weight: 700; font-size: clamp(36px, 6vw, 72px); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; }
+
+/* TABS */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 56px; }
+.tab { background: none; border: none; font-family: var(--font); font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); padding: 14px 0; margin-right: 40px; cursor: pointer; position: relative; transition: color 0.3s; display: flex; align-items: center; gap: 10px; }
+.tab:hover { color: var(--text); }
+.tab[aria-selected="true"] { color: var(--text); }
+.tab[aria-selected="true"]::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--text); }
+.tab-num { font-weight: 300; opacity: 0.6; }
+.tab-status { font-size: 9px; letter-spacing: 2px; border: 1px solid var(--line); padding: 3px 6px; color: var(--text-muted); }
+
+.panel { display: none; }
+.panel.active { display: block; animation: fadeUp 0.6s ease forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* PRODUCT */
+.product { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
+.gallery { position: relative; }
+.gallery-frame { position: relative; aspect-ratio: 973 / 1160; background: #E9E7E3; overflow: hidden; }
+.gallery-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; filter: grayscale(0.15); }
+.gallery-frame img.hidden { opacity: 0; }
+.sold-badge { position: absolute; top: 20px; left: 20px; z-index: 2; background: var(--bg); color: var(--text); font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 8px 14px; }
+.sold-stripe { position: absolute; z-index: 2; left: -10%; right: -10%; top: 50%; height: 1px; background: rgba(10,10,10,0.35); transform: rotate(-90deg); display: none; }
+.views { display: flex; gap: 24px; margin-top: 16px; }
+.view-btn { background: none; border: none; font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); cursor: pointer; padding: 4px 0; border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
+.view-btn:hover { color: var(--text); }
+.view-btn[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--text); }
+
+.info { padding-top: 8px; }
+.product-ref { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.product-name { font-weight: 700; font-size: clamp(26px, 3.5vw, 40px); text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; margin-bottom: 20px; }
+.status { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px; }
+.status::before { content: ''; width: 8px; height: 8px; border: 1px solid var(--text); }
+.status.sold::before { background: none; }
+.desc { font-weight: 300; font-size: 15px; line-height: 1.8; color: var(--text-muted); max-width: 460px; margin-bottom: 32px; }
+.desc strong { color: var(--text); font-weight: 400; }
+.specs { list-style: none; border-top: 1px solid var(--line); margin-bottom: 40px; max-width: 460px; }
+.specs li { display: flex; justify-content: space-between; gap: 24px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 12px; letter-spacing: 1px; }
+.specs li span:first-child { color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 600; }
+
+/* CTA */
+.btn { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font); font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; padding: 16px 28px; border: 1px solid var(--text); color: var(--text); transition: background 0.3s, color 0.3s; }
+.btn:hover { background: var(--text); color: var(--bg); }
+.btn-disabled { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; padding: 16px 28px; border: 1px solid var(--line); color: var(--text-muted); margin-right: 12px; margin-bottom: 12px; cursor: not-allowed; text-decoration: line-through; }
+.cta-note { font-size: 12px; font-weight: 300; letter-spacing: 1px; color: var(--text-muted); margin-top: 16px; max-width: 420px; line-height: 1.6; }
+
+/* COMING SOON */
+.soon { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
+.soon-visual { aspect-ratio: 973 / 1160; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.soon-visual svg { width: 62%; height: auto; }
+.dial-hand { transform-origin: 100px 100px; animation: sweep 9s cubic-bezier(.7,0,.3,1) infinite; }
+@keyframes sweep { 0%,15% { transform: rotate(0deg); } 35%,65% { transform: rotate(90deg); } 85%,100% { transform: rotate(0deg); } }
+.soon-label { position: absolute; bottom: 20px; left: 20px; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); }
+.soon-title { font-weight: 700; font-size: clamp(32px, 5vw, 56px); text-transform: uppercase; letter-spacing: 3px; line-height: 1; margin-bottom: 24px; }
+
+/* FOOTER */
+.page-footer { padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 16px; }
+.page-footer span { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 900px) {
+  .product, .soon { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 768px) {
+  body, body *, body a { cursor: auto !important; }
+  .back-nav { padding: 16px 20px; }
+  .shop { padding: 100px 20px 60px; }
+  .tab { margin-right: 24px; letter-spacing: 2px; }
+  .tab-status { display: none; }
+  .page-footer { padding: 24px; flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+
+/* EASTER EGG */
 .easter-egg-flash { position: fixed; inset: 0; background: #fff; z-index: 10000; pointer-events: none; opacity: 0; }
 .easter-egg-flash.active { animation: easterFlash 0.8s ease forwards; }
 @keyframes easterFlash { 0%{opacity:0}5%{opacity:1}10%{opacity:0}14%{opacity:.9}18%{opacity:0}22%{opacity:.7}26%{opacity:0}35%{opacity:.5}40%{opacity:0}50%{opacity:.3}55%{opacity:0}70%{opacity:.15}100%{opacity:0} }
 .easter-egg-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font); font-weight: 700; font-size: clamp(48px,10vw,120px); color: var(--text); z-index: 10001; pointer-events: none; opacity: 0; text-transform: uppercase; letter-spacing: 8px; }
 .easter-egg-text.active { animation: easterText 1.2s ease forwards; }
 @keyframes easterText { 0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-90deg)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(0)}60%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) rotate(0)} }
+@media (prefers-reduced-motion: reduce) { .dial-hand, .panel.active { animation: none; } }
 </style>
 </head>
 <body>
 
 <div class="easter-egg-flash" id="easterFlash"></div>
 <div class="easter-egg-text" id="easterText">90°</div>
-<a href="index.html" class="back-link">← 90°</a>
-<div class="center">
+
+<nav class="back-nav">
+  <a href="index.html" class="back-link">← 90°</a>
+  <a href="index.html" class="nav-logo">90°</a>
+</nav>
+
+<main class="shop">
+  <p class="section-tag">Merch</p>
   <h1 class="shop-title">Shop</h1>
-  <div class="shop-line"></div>
-  <p class="shop-sub">En cours de développement.</p>
-  <p class="shop-cta">Rejoins le <a href="https://www.whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank">canal WhatsApp</a> pour être prévenu du lancement.</p>
-</div>
+
+  <div class="tabs" role="tablist" aria-label="Saisons">
+    <button class="tab" role="tab" id="tab-s1" aria-controls="season-1" aria-selected="true" data-target="season-1">
+      <span class="tab-num">01</span> Season 1 <span class="tab-status">Sold out</span>
+    </button>
+    <button class="tab" role="tab" id="tab-s2" aria-controls="season-2" aria-selected="false" data-target="season-2">
+      <span class="tab-num">02</span> Season 2 <span class="tab-status">Soon</span>
+    </button>
+  </div>
+
+  <!-- ═══ SEASON 1 ═══ -->
+  <section class="panel active" id="season-1" role="tabpanel" aria-labelledby="tab-s1">
+    <div class="product">
+      <div class="gallery">
+        <div class="gallery-frame">
+          <span class="sold-badge">Sold out</span>
+          <img src="shop/s1-tee-front.jpg" alt="T-shirt 90° Season 1, face avant : logo 90° au centre de la poitrine" id="imgFront">
+          <img src="shop/s1-tee-back.jpg" alt="T-shirt 90° Season 1, dos : Nonante Degrés à la verticale, doublé en braille" id="imgBack" class="hidden">
+        </div>
+        <div class="views">
+          <button class="view-btn" aria-pressed="true" data-view="front">Avant</button>
+          <button class="view-btn" aria-pressed="false" data-view="back">Dos</button>
+        </div>
+      </div>
+
+      <div class="info">
+        <p class="product-ref">90° — S1 / 001</p>
+        <h2 class="product-name">T-shirt<br>Nonante Degrés</h2>
+        <p class="status sold">Sold out</p>
+        <p class="desc">
+          Le premier vêtement 90°. Devant, le cadran et la mention <strong>Season 1</strong>, à peine posés sur la poitrine. Dans le dos, <strong>Nonante Degrés</strong> se lit de haut en bas, doublé en braille&nbsp;: une ligne droite, comme l'angle.
+        </p>
+        <ul class="specs">
+          <li><span>Matière</span><span>Coton bio</span></li>
+          <li><span>Coloris</span><span>Blanc</span></li>
+          <li><span>Impression</span><span>Noir, avant + dos</span></li>
+          <li><span>Tailles</span><span>S / M / L</span></li>
+          <li><span>Édition</span><span>Season 1</span></li>
+        </ul>
+        <span class="btn-disabled">Épuisé</span>
+        <a class="btn" href="https://www.whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank" rel="noopener">Canal WhatsApp →</a>
+        <p class="cta-note">Pas de réassort prévu. Les prochaines pièces sont annoncées d'abord sur le canal WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SEASON 2 ═══ -->
+  <section class="panel" id="season-2" role="tabpanel" aria-labelledby="tab-s2">
+    <div class="soon">
+      <div class="soon-visual" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" stroke="#E4E2DD">
+          <circle cx="100" cy="100" r="80" stroke-opacity="0.25" stroke-width="1"/>
+          <circle cx="100" cy="100" r="2" fill="#E4E2DD" stroke="none"/>
+          <line x1="100" y1="12" x2="100" y2="24" stroke-width="1"/>
+          <line x1="176" y1="100" x2="188" y2="100" stroke-width="1"/>
+          <line x1="100" y1="176" x2="100" y2="188" stroke-opacity="0.3" stroke-width="1"/>
+          <line x1="12" y1="100" x2="24" y2="100" stroke-opacity="0.3" stroke-width="1"/>
+          <path d="M100 100 L100 40" stroke-opacity="0.35" stroke-width="1"/>
+          <path d="M100 52 L112 52 L112 40" stroke-opacity="0.35" stroke-width="1"/>
+          <line class="dial-hand" x1="100" y1="100" x2="100" y2="40" stroke-width="1.5"/>
+        </svg>
+        <span class="soon-label">S2 / —</span>
+      </div>
+
+      <div class="info">
+        <p class="product-ref">90° — Season 2</p>
+        <h2 class="soon-title">Coming<br>soon</h2>
+        <p class="desc">
+          La deuxième saison est en préparation. Les pièces, la date et le nombre d'exemplaires seront dévoilés en avant-première aux membres du canal WhatsApp, avant toute annonce publique.
+        </p>
+        <a class="btn" href="https://www.whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" target="_blank" rel="noopener">Rejoindre le canal WhatsApp →</a>
+        <p class="cta-note">Infos en avant-première, accès prioritaire au lancement.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="page-footer">
+  <span>© 2026 90° — Genève</span>
+  <nav class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="club.html">Club</a>
+    <a href="sunset.html">Sunset</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://www.whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28" class="whatsapp-footer" target="_blank" rel="noopener">WhatsApp</a>
+  </nav>
+</footer>
+
 <script src="90.js"></script>
+<script>
+(function() {
+  // Onglets (avec lien direct : shop.html#season-2)
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  function show(id, push) {
+    tabs.forEach(function(t) { t.setAttribute('aria-selected', t.dataset.target === id ? 'true' : 'false'); });
+    panels.forEach(function(p) { p.classList.toggle('active', p.id === id); });
+    if (push) history.replaceState(null, '', '#' + id);
+  }
+  tabs.forEach(function(t) { t.addEventListener('click', function() { show(t.dataset.target, true); }); });
+  if (location.hash === '#season-2' || location.hash === '#season-1') show(location.hash.slice(1), false);
+
+  // Vue avant / dos
+  var front = document.getElementById('imgFront');
+  var back = document.getElementById('imgBack');
+  var btns = document.querySelectorAll('.view-btn');
+  btns.forEach(function(b) {
+    b.addEventListener('click', function() {
+      var isBack = b.dataset.view === 'back';
+      front.classList.toggle('hidden', isBack);
+      back.classList.toggle('hidden', !isBack);
+      btns.forEach(function(x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
+  });
+})();
+</script>
 </body>
 </html>
