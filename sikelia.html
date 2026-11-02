@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --bg: #140B08; --text: #F3E7D4; --text-muted: #B08A70; --accent: #F0A456; --line: rgba(240,164,86,0.18); --font: 'Chakra Petch', sans-serif; }
+:root { --bg: #0A0A0A; --text: #F3E7D4; --text-muted: #B08A70; --accent: #F0A456; --line: rgba(240,164,86,0.18); --font: 'Chakra Petch', sans-serif; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(20,11,8,0.9), transparent); }
+.back-nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; z-index: 100; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); }
 .back-link { font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
 .back-link:hover { opacity: 1; }
 .nav-logo { font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
@@ -61,7 +61,7 @@ a.lineup-artist:hover { border-bottom-color: currentColor; }
 .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
 .photo-item:hover img { transform: scale(1.03); }
 .photo-credit { margin-top: 16px; font-size: 11px; letter-spacing: 1px; color: var(--text-muted); }
-.lightbox { position: fixed; inset: 0; background: rgba(20,11,8,0.96); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 40px; }
+.lightbox { position: fixed; inset: 0; background: rgba(10,10,10,0.96); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 40px; }
 .lightbox.active { display: flex; }
 .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
 .lightbox-close { position: absolute; top: 20px; right: 40px; font-family: var(--font); font-size: 24px; color: var(--text); background: none; border: none; opacity: 0.7; transition: opacity 0.3s; cursor: pointer; }
