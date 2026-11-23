@@ -1,3 +1,7 @@
-# QR du cube 90° : modifier la cible a chaque soiree puis push
-/live  /sikelia-02.html  302
+# ─── QR du cube 90° ───────────────────────────────────────────
+# 90degres.net/live compte le scan (fonction netlify/functions/scan.mjs)
+# puis renvoie vers /go. DESTINATION DU QR = la ligne /go ci-dessous.
+# Modifier la cible, garder 302, commit + push.
+/go  /live.html  302
+# ──────────────────────────────────────────────────────────────
 /ap5.html  /agenda.html  301

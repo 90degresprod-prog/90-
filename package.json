@@ -1,0 +1,8 @@
+{
+  "name": "90degres-site",
+  "private": true,
+  "description": "Dépendance des fonctions Netlify du QR (compteur de scans, @ à taguer)",
+  "dependencies": {
+    "@netlify/blobs": "^8.2.0"
+  }
+}
