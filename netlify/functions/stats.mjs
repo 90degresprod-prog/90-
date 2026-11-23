@@ -3,8 +3,9 @@
 import { getStore } from "@netlify/blobs";
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const heureGeneve = (iso) => new Intl.DateTimeFormat("fr-CH", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
-const hGeneve = (iso) => +new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", hourCycle: "h23" }).format(new Date(iso));
+const valide = (iso) => !isNaN(new Date(iso).getTime());
+const heureGeneve = (iso) => valide(iso) ? new Intl.DateTimeFormat("fr-CH", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit" }).format(new Date(iso)) : "—";
+const hGeneve = (iso) => valide(iso) ? +new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", hourCycle: "h23" }).format(new Date(iso)) : null;
 const page = (body, status = 200) => new Response(`<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>90° — Stats QR</title>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Chakra Petch',sans-serif;background:#0A0A0A;color:#F2F2F2;padding:24px 18px 60px;max-width:560px;margin:0 auto}
@@ -16,9 +17,11 @@ td.m{color:#8A8A8A;font-size:12px;white-space:nowrap}.btn{display:inline-block;f
 .nights a{display:inline-block;margin:0 8px 8px 0;font-size:12px;padding:6px 10px;border:1px solid rgba(255,255,255,.14);text-decoration:none}.nights a.on{border-color:#F2F2F2}.note{font-size:12px;color:#8A8A8A;line-height:1.55;margin-top:10px}</style></head><body>${body}</body></html>`,
   { status, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 
+const NUIT = /^\d{4}-\d{2}-\d{2}$/;
+// On déduit les nuits des clés elles-mêmes (« 2026-11-28/… »), quel que soit le format renvoyé par Netlify.
 async function nuits(store) {
-  const { directories } = await store.list({ directories: true });
-  return directories || [];
+  const { blobs } = await store.list();
+  return [...new Set((blobs || []).map((b) => String(b.key).split("/")[0]).filter((n) => NUIT.test(n)))];
 }
 
 export default async (req) => {
@@ -31,7 +34,8 @@ export default async (req) => {
   const scans = getStore("scans");
   const tags = getStore({ name: "tags", consistency: "strong" });
   const toutes = [...new Set([...(await nuits(scans)), ...(await nuits(tags))])].sort().reverse();
-  const nuit = url.searchParams.get("nuit") || toutes[0];
+  const demandee = url.searchParams.get("nuit") || "";
+  const nuit = NUIT.test(demandee) ? demandee : toutes[0];
   const base = `?k=${encodeURIComponent(k)}`;
 
   if (!nuit) return page(`<p class="k">90° · Stats QR</p><h1>Aucun scan pour l'instant</h1><p class="note">Le compteur démarre au premier scan de 90degres.net/live.</p>`);
@@ -61,7 +65,7 @@ export default async (req) => {
 
   const personnes = S.filter((s) => s.nouveau).length;
   const parHeure = {};
-  S.forEach((s) => { const h = hGeneve(s.t); parHeure[h] = (parHeure[h] || 0) + 1; });
+  S.forEach((s) => { const h = hGeneve(s.t); if (h !== null) parHeure[h] = (parHeure[h] || 0) + 1; });
   const ordre = Object.keys(parHeure).map(Number).sort((a, b) => ((a + 16) % 24) - ((b + 16) % 24));
   const max = Math.max(1, ...Object.values(parHeure));
   const barres = ordre.map((h) => `<div class="bar"><span>${String(h).padStart(2, "0")}h</span><i style="width:${(parHeure[h] / max) * 100}%"></i><span>${parHeure[h]}</span></div>`).join("");
