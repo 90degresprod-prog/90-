@@ -215,7 +215,7 @@ footer a { text-decoration: none; }
 
     <form class="tag-box" id="tagForm" novalidate>
       <p class="big">Laisse ton @.<br>On te tague.</p>
-      <p class="lead">Quand on publie les photos de ce soir, on tague celles et ceux qui sont dessus. Laisse ton Instagram, tu ne rateras pas les tiennes.</p>
+      <p class="lead">Quand on publiera les photos de ce soir, on taguera celles et ceux qui sont dessus. Laisse ton Instagram, tu ne rateras pas les tiennes.</p>
       <label class="field"><span>@</span><input type="text" id="igInput" name="instagram" placeholder="tonpseudo" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="text" maxlength="40"></label>
       <label class="check"><input type="checkbox" id="accord"> <span>J'accepte que 90° me tague sur Instagram dans les photos de cette soirée.</span></label>
       <label class="check"><input type="checkbox" id="suite"> <span>Préviens-moi des prochaines dates.</span></label>
@@ -275,11 +275,13 @@ var SOIREE = {
   creneaux: [
     { debut: '2026-11-28T18:00+01:00', fin: '2026-11-28T19:00+01:00', nom: 'Aperitivo', ambiance: 'Disco lente, balearic, downtempo. Le son reste en fond.', artistes: [] },
     { debut: '2026-11-28T19:00+01:00', fin: '2026-11-28T21:00+01:00', nom: 'Open Platine', ambiance: 'Les DJ sélectionnés par l\'Open Platine 90° ouvrent la soirée.',
-      artistes: [ { nom: 'T@0', ig: '' }, { nom: 'Filosa', ig: '' } ] },
-    { debut: '2026-11-28T21:00+01:00', fin: '2026-11-28T23:00+01:00', nom: 'Groove', ambiance: 'House méditerranéenne, organic. Les tables se lèvent.',
-      artistes: [ { nom: 'Bunda', ig: '' }, { nom: 'Cetenza', ig: 'cetenza_' } ] },
-    { debut: '2026-11-28T23:00+01:00', fin: '2026-11-29T02:00+01:00', nom: 'Notte', ambiance: 'Italo-disco, nu-disco, house. Jusqu\'à la fermeture.',
-      artistes: [ { nom: 'Bunda', ig: '' }, { nom: 'Cetenza', ig: 'cetenza_' } ] }
+      artistes: [ { nom: 'T@0', ig: 'dj_ta0' }, { nom: 'Filosa', ig: 'filosa.music' }, { nom: 'Noway', ig: 'dj__noway' } ] },
+    { debut: '2026-11-28T21:00+01:00', fin: '2026-11-28T22:30+01:00', nom: 'Groove', ambiance: 'House méditerranéenne, organic. Les tables se lèvent.',
+      artistes: [ { nom: 'Cetenza', ig: 'cetenza_' } ] },
+    { debut: '2026-11-28T22:30+01:00', fin: '2026-11-29T00:00+01:00', nom: 'Notte', ambiance: 'House. La salle passe en mode nuit.',
+      artistes: [ { nom: 'Stereokillask', ig: 'stereokillask' } ] },
+    { debut: '2026-11-29T00:00+01:00', fin: '2026-11-29T02:00+01:00', nom: 'Notte', ambiance: 'Italo-disco, nu-disco, house. Jusqu\'à la fermeture.',
+      artistes: [ { nom: 'Bunda', ig: 'milesnotfound' } ] }
   ],
   lieu: { nom: 'Sikelia', ig: 'sikeliageneve', adresse: '4 rue de Montchoisy · Eaux-Vives, Genève',
           desc: 'Aperitivo, cocktails, et la salle qui danse jusqu\'à 2h.' },
