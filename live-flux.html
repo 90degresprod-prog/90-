@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>90° — Live</title>
+<meta name="description" content="La soirée en direct : qui joue, le line-up, le lieu, le canal 90°, et ton @ pour être tagué·e sur les photos.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* 90° LIVE · version « Flux » : défilement vertical aéré, un écran par sujet,
+   le grand cercle tourne avec le défilement, cadran-menu en quart de cercle. */
+:root { --bg: #0A0A0A; --text: #F3E7D4; --muted: #B08A70; --accent: #F0A456; --line: rgba(240,164,86,0.18);
+  --font: 'Chakra Petch', 'Arial Narrow', system-ui, sans-serif; --top: calc(56px + env(safe-area-inset-top, 0px)); color-scheme: dark; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); overflow: hidden; overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+a { color: inherit; }
+button { font-family: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+.acc { color: var(--accent); }
+@keyframes pulse { 50% { opacity: .2; } }
+
+/* Intro : l'aiguille passe à 90° */
+.intro { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: opacity .5s ease .1s, visibility 0s linear .6s; }
+.intro.out { opacity: 0; visibility: hidden; }
+.intro svg { width: 150px; height: 150px; overflow: visible; }
+.intro .needle { transform-origin: 20px 130px; animation: toNinety .9s cubic-bezier(.7,0,.2,1) .15s forwards; }
+.intro .deg { opacity: 0; animation: fadeIn .3s ease .95s forwards; }
+@keyframes toNinety { to { transform: rotate(90deg); } }
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* Barre du haut */
+.bar { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: var(--top); padding: env(safe-area-inset-top, 0px) max(20px, env(safe-area-inset-right, 0px)) 0 max(20px, env(safe-area-inset-left, 0px));
+  display: flex; align-items: center; justify-content: space-between; background: var(--bg); border-bottom: 1px solid var(--line); }
+.logo { font-weight: 700; font-size: 18px; letter-spacing: 2px; text-decoration: none; }
+.pill { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--line); color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+.pill.on { border-color: var(--accent); color: var(--accent); }
+.pill.on::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s infinite; }
+
+/* Défilement */
+#flux { position: fixed; inset: var(--top) 0 0 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; scroll-snap-type: y proximity; overscroll-behavior: contain; }
+.ring { position: fixed; z-index: 0; width: 150vmax; height: 150vmax; left: 50%; top: 52%; margin: -75vmax 0 0 -75vmax; pointer-events: none; opacity: .07; will-change: transform; }
+.sec { position: relative; z-index: 1; min-height: calc(100svh - var(--top)); scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center;
+  padding: 88px max(28px, env(safe-area-inset-right, 0px)) 112px max(28px, env(safe-area-inset-left, 0px)); max-width: 560px; margin: 0 auto; }
+.sec + .sec { border-top: 1px solid var(--line); }
+.num { font-size: 11px; font-weight: 700; letter-spacing: 4px; color: var(--accent); margin: 0 0 28px; font-variant-numeric: tabular-nums; }
+h1 { font-size: clamp(34px, 10.4vw, 64px); font-weight: 700; line-height: .92; text-transform: uppercase; margin: 22px 0; letter-spacing: .5px; }
+h2 { font-size: clamp(40px, 12vw, 60px); font-weight: 700; line-height: .95; margin: 0 0 26px; text-wrap: balance; }
+.edition { font-size: 12px; font-weight: 600; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 26px; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+.gauge { width: 100%; height: auto; display: block; margin-top: 44px; }
+.down { margin-top: 40px; display: flex; align-items: center; gap: 12px; }
+.down i { width: 1px; height: 38px; background: var(--muted); position: relative; overflow: hidden; }
+.down i::after { content: ""; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: var(--accent); animation: drip 1.8s ease-in-out infinite; }
+@keyframes drip { to { top: 100%; } }
+.giant { font-size: var(--fs, clamp(44px, 14vw, 76px)); font-weight: 700; text-transform: uppercase; line-height: .95; margin: 18px 0 22px; overflow-wrap: anywhere; }
+.sub { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.65; margin: 0 0 30px; max-width: 34ch; }
+.next { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+.next b { font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
+.ig-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.ig { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-decoration: none; padding: 11px 14px; border: 1px solid var(--text); min-height: 42px; }
+.ig:active { background: var(--text); color: var(--bg); }
+.ig svg { width: 15px; height: 15px; fill: currentColor; }
+.list { list-style: none; margin: 10px 0 0; display: grid; gap: 34px; }
+.list li { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: start; }
+.time { font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--muted); padding-top: 9px; font-variant-numeric: tabular-nums; }
+.names { display: grid; gap: 10px; }
+.name { display: block; font-size: 28px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; line-height: 1.05; text-decoration: none; }
+.name small { display: block; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: none; color: var(--accent); margin-top: 6px; }
+.name.dim { color: var(--muted); }
+.mood { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.list li.is-now .time { color: var(--accent); }
+.list li.is-now .time::before { content: "● "; animation: pulse 1.6s infinite; }
+.list li.is-past { opacity: .35; }
+
+/* Tague-moi */
+.lead { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.65; margin-bottom: 40px; }
+.field { display: flex; align-items: center; border-bottom: 1px solid var(--muted); margin-bottom: 30px; }
+.field:focus-within { border-bottom-color: var(--accent); }
+.field span { font-size: 26px; font-weight: 700; color: var(--accent); padding-right: 4px; }
+.field input { flex: 1; min-width: 0; font-family: var(--font); font-size: 26px; font-weight: 600; color: var(--text); background: transparent; border: 0; padding: 14px 0; outline: none; border-radius: 0; }
+.field input::placeholder { color: var(--muted); opacity: .5; font-weight: 400; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; font-weight: 300; line-height: 1.5; margin-bottom: 20px; cursor: pointer; }
+.check input { appearance: none; -webkit-appearance: none; width: 20px; height: 20px; border: 1px solid var(--muted); flex-shrink: 0; margin-top: 1px; position: relative; cursor: pointer; border-radius: 0; }
+.check input:checked { border-color: var(--accent); background: var(--accent); }
+.check input:checked::after { content: ""; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid var(--bg); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; font-family: var(--font); font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; padding: 19px 18px; margin-top: 18px; border: 1px solid var(--text); background: transparent; color: var(--text); cursor: pointer; border-radius: 0; }
+.btn.solid { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn:disabled { opacity: .5; }
+.btn svg { width: 16px; height: 16px; fill: currentColor; }
+.err { font-size: 13px; color: var(--accent); min-height: 18px; margin-top: 10px; }
+.legal { font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.55; margin-top: 22px; }
+.legal a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.pass { position: relative; background: var(--accent); color: var(--bg); padding: 22px 20px 20px; animation: passIn .7s cubic-bezier(.2,.9,.3,1.2); }
+@keyframes passIn { from { transform: rotate(-90deg) scale(.6); opacity: 0; } }
+.pass .row { display: flex; justify-content: space-between; }
+.pass .k { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: .75; }
+.pass .n { font-size: 44px; font-weight: 700; line-height: 1; margin-top: 4px; }
+.pass .h { font-size: 24px; font-weight: 700; margin: 18px 0 4px; word-break: break-all; }
+.pass .ev { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+.pass .cut { border-top: 1px dashed rgba(10,10,10,.45); margin: 18px -20px 14px; }
+.pass .foot { font-size: 12px; line-height: 1.5; }
+.pass svg { width: 70px; height: 70px; flex-shrink: 0; }
+.after { margin-top: 14px; }
+
+/* Lieu · Canal */
+.place { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.7; margin: 0 0 34px; }
+.links { display: grid; }
+.link { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 20px 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 17px; font-weight: 600; letter-spacing: .5px; }
+.link span { color: var(--accent); font-size: 13px; }
+.end { text-align: center; font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; padding: 40px 0 140px; position: relative; z-index: 1; }
+.end a { text-decoration: none; }
+
+/* Apparition au défilement */
+.r { opacity: .001; transform: translateY(26px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+.r.in { opacity: 1; transform: none; }
+
+/* Cadran-menu en quart de cercle */
+.fab { position: fixed; z-index: 70; right: max(20px, env(safe-area-inset-right, 0px)); bottom: calc(22px + env(safe-area-inset-bottom, 0px)); width: 62px; height: 62px; border-radius: 50%; border: 1px solid var(--accent); background: var(--bg); cursor: pointer; padding: 0; display: grid; place-items: center; box-shadow: 0 0 0 6px rgba(10,10,10,.6); }
+.fab svg { width: 62px; height: 62px; }
+.veil { position: fixed; inset: 0; z-index: 65; background: rgba(10,10,10,.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.veil.open { opacity: 1; pointer-events: auto; }
+.item { position: fixed; z-index: 69; right: calc(max(20px, env(safe-area-inset-right, 0px)) + 31px); bottom: calc(22px + env(safe-area-inset-bottom, 0px) + 31px); transform: translate(50%, 50%) scale(.3); opacity: 0; pointer-events: none;
+  font-family: var(--font); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text); background: var(--bg); border: 1px solid var(--line); padding: 11px 14px; white-space: nowrap; cursor: pointer; transition: transform .45s cubic-bezier(.2,.9,.3,1.15), opacity .3s; }
+.item b { color: var(--accent); margin-right: 8px; }
+.item.on { border-color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; } .r { opacity: 1; transform: none; transition: none; } #flux { scroll-behavior: auto; } .pass { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  PAGE LIVE DU CUBE QR — 90degres.net/live (version « Flux »)
+  Pour une nouvelle soirée : modifier UNIQUEMENT le bloc SOIREE
+  dans le <script> en bas, puis commit + push.
+  Un @ laissé vide ('') = pas de lien Instagram.
+  Ancienne version de secours : live-v1.html (ligne /go de _redirects).
+  ═══════════════════════════════════════════════════════════════════
+-->
+
+<div class="intro" id="intro" aria-hidden="true">
+  <svg viewBox="0 0 150 150">
+    <path d="M20 10 A120 120 0 0 1 140 130" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 6"/>
+    <path d="M20 130 V10 M20 130 H140" fill="none" stroke="var(--line)" stroke-width="1"/>
+    <line class="needle" x1="20" y1="130" x2="20" y2="20" stroke="var(--accent)" stroke-width="3"/>
+    <circle cx="20" cy="130" r="4" fill="var(--accent)"/>
+    <text class="deg" x="140" y="40" text-anchor="end" font-family="Chakra Petch, sans-serif" font-weight="700" font-size="34" fill="var(--text)">90°</text>
+  </svg>
+</div>
+
+<header class="bar">
+  <a class="logo" href="index.html">90°</a>
+  <span class="pill" id="pill">Live</span>
+</header>
+
+<main id="flux">
+  <svg class="ring" id="ring" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="var(--text)" stroke-width=".35"><circle cx="100" cy="100" r="98"/><circle cx="100" cy="100" r="80" stroke-dasharray=".6 2.4"/><circle cx="100" cy="100" r="60"/><path d="M100 2V22M198 100H178M100 198V178M2 100H22M100 100V40M100 100H160"/></g></svg>
+
+  <section class="sec" id="s-hero">
+    <p class="mono">Tu es au bon angle</p>
+    <h1 id="title"></h1>
+    <p class="edition" id="edition"></p>
+    <div class="meta" id="meta"></div>
+    <div id="gauge"></div>
+    <div class="down"><i></i><span class="mono">Descends</span></div>
+  </section>
+
+  <section class="sec r in" id="s-now"></section>
+  <section class="sec r" id="s-lineup"></section>
+
+  <section class="sec r" id="s-tag">
+    <p class="num">03 / 04</p>
+    <h2>Sois sur la photo</h2>
+    <form id="tagForm" novalidate>
+      <p class="lead">Quand on publiera les photos de ce soir, on taguera celles et ceux qui sont dessus. Laisse ton Instagram, tu ne rateras pas les tiennes.</p>
+      <label class="field" for="igInput"><span>@</span><input type="text" id="igInput" name="instagram" placeholder="tonpseudo" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="40"></label>
+      <label class="check" for="accord"><input type="checkbox" id="accord"><span>J'accepte que 90° me tague sur Instagram dans les photos de cette soirée.</span></label>
+      <label class="check" for="suite"><input type="checkbox" id="suite"><span>Préviens-moi des prochaines dates.</span></label>
+      <button class="btn solid" type="submit" id="tagBtn">Tague-moi</button>
+      <p class="err" id="tagErr" role="alert"></p>
+      <p class="legal">Ton @ sert uniquement à te taguer sur les photos de cette soirée. Il n'est jamais transmis à des tiers et il est effacé une fois les photos publiées, sauf si tu as coché « prochaines dates ». Pour le retirer, écris à <a href="https://instagram.com/90degres__">@90degres__</a>.</p>
+    </form>
+    <div id="passBox" hidden></div>
+  </section>
+
+  <section class="sec r" id="s-infos"></section>
+  <p class="end"><a href="index.html">90degres.net</a> · Genève</p>
+</main>
+
+<div class="veil" id="veil"></div>
+<button class="fab" id="fab" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+  <svg viewBox="0 0 62 62" aria-hidden="true"><circle cx="31" cy="31" r="22" fill="none" stroke="var(--line)"/><g stroke="var(--muted)" stroke-width="1.2"><path d="M31 6v5M56 31h-5M31 56v-5M6 31h5"/></g><line id="fabNeedle" x1="31" y1="31" x2="31" y2="12" stroke="var(--accent)" stroke-width="2.4"/><circle cx="31" cy="31" r="3" fill="var(--accent)"/><text id="fabDeg" x="31" y="47" text-anchor="middle" font-family="Chakra Petch, sans-serif" font-size="8" font-weight="700" fill="var(--text)">0°</text></svg>
+</button>
+<div id="items"></div>
+
+<script>
+/* ═════════════ RÉGLAGES DE LA SOIRÉE — À MODIFIER ═════════════ */
+var SOIREE = {
+  id: 'N02-sikelia',
+  titre: 'Apéro<br>Mediterraneo',
+  edition: 'N°02 · 90° × Sikelia',
+  infos: ['Sam 28.11', 'Dès 18h', 'Entrée libre'],
+  // Couleurs. N°02 = chaud. Club : text '#F2F2F2', muted '#8A8A8A', accent '#FFFFFF', line 'rgba(255,255,255,0.16)'
+  couleurs: { bg: '#0A0A0A', text: '#F3E7D4', muted: '#B08A70', accent: '#F0A456', line: 'rgba(240,164,86,0.18)' },
+  // Créneaux (heure de Genève, +01:00 en hiver). La soirée va de 0° (début du 1er) à 90° (fin du dernier).
+  creneaux: [
+    { debut: '2026-11-28T18:00+01:00', fin: '2026-11-28T19:00+01:00', nom: 'Aperitivo', ambiance: 'Disco lente, balearic, downtempo. Le son reste en fond.', artistes: [] },
+    { debut: '2026-11-28T19:00+01:00', fin: '2026-11-28T21:00+01:00', nom: 'Open Platine', ambiance: 'Les DJ sélectionnés par l\'Open Platine 90° ouvrent la soirée.',
+      artistes: [ { nom: 'T@0', ig: 'dj_ta0' }, { nom: 'Filosa', ig: 'filosa.music' }, { nom: 'Noway', ig: 'dj__noway' } ] },
+    { debut: '2026-11-28T21:00+01:00', fin: '2026-11-28T22:30+01:00', nom: 'Groove', ambiance: 'House méditerranéenne, organic. Les tables se lèvent.', artistes: [ { nom: 'Cetenza', ig: 'cetenza_' } ] },
+    { debut: '2026-11-28T22:30+01:00', fin: '2026-11-29T00:00+01:00', nom: 'Notte', ambiance: 'House. La salle passe en mode nuit.', artistes: [ { nom: 'Stereokillask', ig: 'stereokillask' } ] },
+    { debut: '2026-11-29T00:00+01:00', fin: '2026-11-29T02:00+01:00', nom: 'Notte', ambiance: 'Italo-disco, nu-disco, house. Jusqu\'à la fermeture.', artistes: [ { nom: 'Bunda', ig: 'milesnotfound' } ] }
+  ],
+  lieu: { nom: 'Sikelia', ig: 'sikeliageneve', adresse: '4 rue de Montchoisy · Eaux-Vives, Genève', desc: 'Aperitivo, cocktails, et la salle qui danse jusqu\'à 2h.' },
+  organisateur: { ig: '90degres__' },
+  whatsapp: 'https://www.whatsapp.com/channel/0029Vb7ityD2UPB9B03rjI28'
+};
+/* ═════════════ FIN DES RÉGLAGES ═════════════ */
+
+(function () {
+  var S = SOIREE, $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function hh(iso) { var h = iso.slice(11, 13), m = iso.slice(14, 16); return h + 'h' + (m === '00' ? '' : m); }
+  function vib(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
+  var rs = document.documentElement.style;
+  ['bg', 'text', 'muted', 'accent', 'line'].forEach(function (k) { if (S.couleurs[k]) rs.setProperty('--' + k, S.couleurs[k]); });
+
+  /* Intro une fois par visite */
+  var intro = $('intro'), seen = false;
+  try { seen = sessionStorage.getItem('90intro') === '1'; sessionStorage.setItem('90intro', '1'); } catch (e) {}
+  if (seen) intro.classList.add('out'); else setTimeout(function () { intro.classList.add('out'); }, 1500);
+
+  var IG = '<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg>';
+  var WA = '<svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8a9.9 9.9 0 01-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1112 21.8zM20.5 3.5A11.8 11.8 0 0012 0C5.5 0 .2 5.3.2 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7c1.7 1 3.7 1.5 5.7 1.5 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4z"/></svg>';
+  function igBtn(h, label) { return h ? '<a class="ig" href="https://instagram.com/' + esc(h) + '" target="_blank" rel="noopener">' + IG + esc(label || '@' + h) + '</a>' : ''; }
+
+  var slots = S.creneaux.map(function (c) { return { c: c, d: Date.parse(c.debut), f: Date.parse(c.fin) }; });
+  var START = slots[0].d, END = slots[slots.length - 1].f;
+  function current(n) { return slots.filter(function (s) { return n >= s.d && n < s.f; })[0]; }
+  function toDeg(n) { return Math.max(0, Math.min(90, (n - START) / (END - START) * 90)); }
+  function namesOf(s, sep) { return s.c.artistes.map(function (a) { return esc(a.nom); }).join(sep) || esc(s.c.nom); }
+
+  function gaugeSVG(d) {
+    var CX = 24, CY = 184, R = 150;
+    function pt(a, r) { var t = a * Math.PI / 180; return [CX + r * Math.sin(t), CY - r * Math.cos(t)]; }
+    function arc(a0, a1) { var p = pt(a0, R), q = pt(a1, R); return 'M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ' A' + R + ' ' + R + ' 0 0 1 ' + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }
+    var s = '<svg class="gauge" viewBox="0 0 320 200" role="img" aria-label="La soirée est à ' + Math.round(d) + ' degrés sur 90">';
+    for (var a = 0; a <= 90; a += 5) { var big = a % 30 === 0, p1 = pt(a, R + 6), p2 = pt(a, R + (big ? 16 : 11)); s += '<line x1="' + p1[0].toFixed(1) + '" y1="' + p1[1].toFixed(1) + '" x2="' + p2[0].toFixed(1) + '" y2="' + p2[1].toFixed(1) + '" stroke="var(--muted)" stroke-width="' + (big ? 1.4 : .7) + '"/>'; }
+    s += '<path d="M' + CX + ' ' + CY + 'V' + (CY - R - 18) + 'M' + CX + ' ' + CY + 'H' + (CX + R + 18) + '" stroke="var(--line)"/><path d="' + arc(0, 90) + '" fill="none" stroke="var(--line)" stroke-width="2"/>';
+    if (d > .3) s += '<path d="' + arc(0, d) + '" fill="none" stroke="var(--accent)" stroke-width="3"/>';
+    slots.forEach(function (sl) { var a = (sl.d - START) / (END - START) * 90, p = pt(a, R), q = pt(a, R - 18); s += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3" fill="var(--bg)" stroke="var(--muted)"/><text x="' + q[0].toFixed(1) + '" y="' + (q[1] + 4).toFixed(1) + '" dx="' + (a < 3 ? 12 : a < 45 ? 6 : -4) + '" text-anchor="' + (a < 45 ? 'start' : 'end') + '" font-family="Chakra Petch, sans-serif" font-size="10" font-weight="600" fill="var(--muted)">' + hh(sl.c.debut) + '</text>'; });
+    var e = pt(d, R - 2);
+    s += '<line x1="' + CX + '" y1="' + CY + '" x2="' + e[0].toFixed(1) + '" y2="' + e[1].toFixed(1) + '" stroke="var(--text)" stroke-width="2"/><circle cx="' + CX + '" cy="' + CY + '" r="5" fill="var(--accent)"/>';
+    s += '<text x="314" y="64" text-anchor="end" font-family="Chakra Petch, sans-serif" font-weight="700" font-size="58" fill="var(--text)">' + Math.round(d) + '°</text><text x="314" y="86" text-anchor="end" font-family="Chakra Petch, sans-serif" font-weight="600" font-size="10" letter-spacing="2" fill="var(--muted)">DE LA SOIRÉE</text></svg>';
+    return s;
+  }
+
+  /* Contenu fixe */
+  $('title').innerHTML = S.titre;
+  $('edition').textContent = S.edition;
+  $('meta').innerHTML = S.infos.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('<span class="acc">·</span>');
+  var L = S.lieu;
+  $('s-infos').innerHTML = '<p class="num">04 / 04</p><h2>' + esc(L.nom) + '</h2><p class="place">' + esc(L.desc) + '<br>' + esc(L.adresse) + '</p><div class="links">' +
+    '<a class="link" href="https://instagram.com/' + esc(L.ig) + '" target="_blank" rel="noopener">Le lieu<span>@' + esc(L.ig) + ' ↗</span></a>' +
+    '<a class="link" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(L.nom + ', ' + L.adresse.replace(/·/g, ',')) + '" target="_blank" rel="noopener">Itinéraire<span>Maps ↗</span></a>' +
+    '<a class="link" href="https://instagram.com/' + esc(S.organisateur.ig) + '" target="_blank" rel="noopener">L\'organisateur<span>@' + esc(S.organisateur.ig) + ' ↗</span></a></div>' +
+    '<p class="mono" style="margin:56px 0 12px">Canal WhatsApp · Avant-première</p><p class="sub" style="margin-bottom:8px">Les prochaines dates et les line-ups arrivent d\'abord sur le canal.</p><a class="btn solid" href="' + S.whatsapp + '" target="_blank" rel="noopener">' + WA + 'Rejoindre le canal</a>';
+
+  /* Contenu qui suit l'heure */
+  var flux = $('flux');
+  function render() {
+    var n = Date.now(), cur = current(n), nxt = slots.filter(function (s) { return s.d > n; })[0];
+    $('gauge').innerHTML = gaugeSVG(toDeg(n));
+    var h = '<p class="num">01 / 04</p>';
+    if (cur) h += '<p class="mono acc">Aux platines · ' + hh(cur.c.debut) + ' — ' + hh(cur.c.fin) + '</p><p class="giant">' + namesOf(cur, '<br>') + '</p><p class="sub">' + esc(cur.c.ambiance) + '</p><div class="ig-row">' + cur.c.artistes.map(function (a) { return igBtn(a.ig, 'Suivre @' + a.ig); }).join('') + '</div>';
+    else if (n < START) h += '<p class="mono acc">Ouverture</p><p class="giant">' + new Date(START).toLocaleDateString('fr-CH', { weekday: 'long', timeZone: 'Europe/Zurich' }) + '<br>' + hh(S.creneaux[0].debut) + '</p><p class="sub">Reviens scanner le cube pendant la soirée : cette section te dira qui est aux platines.</p>';
+    else h += '<p class="mono acc">90° atteint</p><p class="giant">Merci</p><p class="sub">Les photos arrivent sur @' + esc(S.organisateur.ig) + '. Laisse ton @ un peu plus bas pour être tagué·e.</p>';
+    if (nxt) h += '<div class="next"><span class="mono">Ensuite · ' + hh(nxt.c.debut) + '</span><b>' + namesOf(nxt, ' · ') + '</b></div>';
+    $('s-now').innerHTML = h;
+    var g = $('s-now').querySelector('.giant');
+    if (g) { var longest = Math.max.apply(null, g.textContent.split(/\s+/).map(function (w) { return w.length; }).concat([1])), avail = Math.min(flux.clientWidth || window.innerWidth, 560) - 56; g.style.setProperty('--fs', Math.max(28, Math.min(76, Math.floor(avail / (longest * 0.7)))) + 'px'); }
+
+    $('s-lineup').innerHTML = '<p class="num">02 / 04</p><h2>Line-up</h2><ol class="list">' + slots.map(function (s) {
+      var cls = (s === cur ? 'is-now' : '') + (n >= s.f ? ' is-past' : '');
+      var names = s.c.artistes.map(function (a) { return a.ig ? '<a class="name" href="https://instagram.com/' + esc(a.ig) + '" target="_blank" rel="noopener">' + esc(a.nom) + '<small>@' + esc(a.ig) + ' ↗</small></a>' : '<span class="name">' + esc(a.nom) + '</span>'; }).join('') || '<span class="name dim">' + esc(s.c.nom) + '</span>';
+      return '<li class="' + cls + '"><span class="time">' + hh(s.c.debut) + '</span><div class="names">' + names + '<p class="mood">' + esc(s.c.nom) + ' · ' + esc(s.c.ambiance) + '</p></div></li>';
+    }).join('') + '</ol>';
+
+    var pill = $('pill');
+    if (cur) { pill.className = 'pill on'; pill.textContent = 'En direct'; }
+    else if (n < START) { pill.className = 'pill'; pill.textContent = 'Bientôt'; }
+    else { pill.className = 'pill'; pill.textContent = 'Terminé'; }
+  }
+  render();
+  setInterval(render, 30000);
+
+  /* Apparition au défilement */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { root: flux, threshold: .08 });
+    document.querySelectorAll('.r:not(.in)').forEach(function (el) { io.observe(el); });
+  } else document.querySelectorAll('.r').forEach(function (el) { el.classList.add('in'); });
+
+  /* Le défilement fait tourner le grand cercle et l'aiguille du bouton */
+  var SECS = [['s-now', 'Live'], ['s-lineup', 'Line-up'], ['s-tag', 'Tague-moi'], ['s-infos', 'Lieu · Canal']], tick = false;
+  flux.addEventListener('scroll', function () {
+    if (tick) return; tick = true;
+    requestAnimationFrame(function () {
+      tick = false;
+      var max = Math.max(1, flux.scrollHeight - flux.clientHeight), p = Math.min(1, flux.scrollTop / max);
+      $('ring').style.transform = 'rotate(' + (flux.scrollTop * 0.06).toFixed(2) + 'deg)';
+      $('fabNeedle').setAttribute('transform', 'rotate(' + (p * 90).toFixed(1) + ' 31 31)');
+      $('fabDeg').textContent = Math.round(p * 90) + '°';
+      var mid = flux.scrollTop + flux.clientHeight * .4, on = 0;
+      SECS.forEach(function (f, i) { var el = $(f[0]); if (el && el.offsetTop <= mid) on = i; });
+      $('items').querySelectorAll('.item').forEach(function (b, i) { b.classList.toggle('on', i === on); });
+    });
+  }, { passive: true });
+
+  /* Menu en quart de cercle */
+  $('items').innerHTML = SECS.map(function (f, i) { return '<button class="item" type="button" data-go="' + f[0] + '" tabindex="-1"><b>' + (i * 30) + '°</b>' + f[1] + '</button>'; }).join('');
+  var open = false;
+  function menu(o) {
+    open = o; $('veil').classList.toggle('open', o); $('fab').setAttribute('aria-expanded', o);
+    var fab = $('fab').getBoundingClientRect(), cx = fab.left + fab.width / 2;
+    $('items').querySelectorAll('.item').forEach(function (b, i) {
+      var R = Math.min(250, window.innerHeight * .4), y = -(18 + i * (R - 18) / 3), x = -Math.sqrt(Math.max(0, R * R - y * y)) - 14, minX = -(cx - 16 - b.offsetWidth);
+      if (x < minX) x = minX; if (i === 3) x = Math.min(x, -40);
+      b.style.transitionDelay = (o ? i * 45 : (3 - i) * 30) + 'ms';
+      b.style.transform = o ? 'translate(' + x.toFixed(0) + 'px,' + y.toFixed(0) + 'px) translate(0,50%) scale(1)' : 'translate(50%,50%) scale(.3)';
+      b.style.opacity = o ? 1 : 0; b.style.pointerEvents = o ? 'auto' : 'none'; b.tabIndex = o ? 0 : -1;
+    });
+  }
+  $('fab').addEventListener('click', function () { menu(!open); vib(10); });
+  $('veil').addEventListener('click', function () { menu(false); });
+  $('items').addEventListener('click', function (e) { var b = e.target.closest('.item'); if (!b) return; var el = $(b.dataset.go); menu(false); if (el) flux.scrollTo({ top: el.offsetTop, behavior: 'smooth' }); });
+  window.addEventListener('keydown', function (e) { if (e.key === 'Escape' && open) menu(false); });
+
+  /* Tague-moi → /api/tag */
+  var form = $('tagForm'), err = $('tagErr'), btn = $('tagBtn');
+  function showPass(p) {
+    $('passBox').innerHTML = '<div class="pass"><div class="row"><div><p class="k">Pass 90°</p><p class="n">' + (p.n ? 'N°' + ('00' + p.n).slice(-3) : '') + '</p></div><svg viewBox="0 0 80 80" aria-hidden="true"><g fill="none" stroke="currentColor"><circle cx="40" cy="40" r="37" stroke-width="1.2"/><circle cx="40" cy="40" r="30" stroke-width=".8" stroke-dasharray="1 3"/><path d="M40 40V14M40 40H66" stroke-width="2.4"/></g><text x="40" y="62" text-anchor="middle" font-family="Chakra Petch, sans-serif" font-weight="700" font-size="11" fill="currentColor">90°</text></svg></div><p class="h">@' + esc(p.handle) + '</p><p class="ev">' + esc(S.edition) + ' · ' + esc(S.infos[0]) + '</p><div class="cut"></div><p class="foot">Tu es sur la liste. Tu seras tagué·e sur les photos où tu apparais. Fais une capture : c\'est la preuve que tu étais là.</p></div>' +
+      '<div class="ig-row after">' + igBtn(S.organisateur.ig, 'Suivre @' + S.organisateur.ig + ' pour voir les photos') + '</div>';
+    form.hidden = true; $('passBox').hidden = false;
+  }
+  try { var saved = localStorage.getItem('90pass-' + S.id); if (saved) showPass(JSON.parse(saved)); } catch (e) {}
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); err.textContent = '';
+    var h = $('igInput').value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@+/, '').replace(/[\/?#].*$/, '').trim();
+    if (!/^[A-Za-z0-9._]{1,30}$/.test(h)) { err.textContent = 'Ce @ ne ressemble pas à un compte Instagram.'; $('igInput').focus(); return; }
+    if (!$('accord').checked) { err.textContent = 'Coche la première case pour qu\'on puisse te taguer.'; return; }
+    btn.disabled = true; btn.textContent = 'Envoi…';
+    fetch('/api/tag', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ instagram: h, accord_tag: true, prochaines_dates: $('suite').checked, soiree: S.id }) })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok || !j.ok) throw new Error(j.erreur || 'erreur'); return j; }); })
+      .then(function (j) { var p = { handle: j.handle || h, n: j.n }; try { localStorage.setItem('90pass-' + S.id, JSON.stringify(p)); } catch (x) {} showPass(p); vib(40); })
+      .catch(function (x) { err.textContent = x.message && x.message !== 'erreur' ? x.message : 'Petit souci réseau. Réessaie dans un instant.'; btn.disabled = false; btn.textContent = 'Tague-moi'; });
+  });
+})();
+</script>
+</body>
+</html>
